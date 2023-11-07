@@ -38,7 +38,7 @@ Please note that this interface is a work in progress. We are continuously enhan
 - If you'd like to contribute or enhance the project, feel free to make changes to the HTML, JavaScript, or CSS files.
 
 **5. Feedback and contributions:**
-- We welcome your feedback and contributions. If you'd like to suggest improvements or report issues, please open an [issue](https://github.com/your-username/qsmp-eggs-web-interface/issues).
+- We welcome your feedback and contributions. If you'd like to suggest improvements or report issues, please open an [issue](https://github.com/fleurspirituelles/eggcellent-management-interface/issues).
 - We look forward to your involvement in this exciting project! 🥚
 
 That's it! You're now ready to explore and work with the QSMP Eggs Web Interface project. Enjoy managing your QSMP eggs!
