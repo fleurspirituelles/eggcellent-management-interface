@@ -42,3 +42,9 @@ Please note that this interface is a work in progress. We are continuously enhan
 - We look forward to your involvement in this exciting project! 🥚
 
 That's it! You're now ready to explore and work with the QSMP Eggs Web Interface project. Enjoy managing your QSMP eggs!
+
+### License
+
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+You are free to use, modify, and distribute this project for personal and commercial purposes. Please refer to the [MIT License](https://opensource.org/licenses/MIT) for detailed information on the terms and conditions of the license.
