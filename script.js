@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+
   $('#registerEgg').submit(e => {
     e.preventDefault()
     if (validateFormData(e)) {
@@ -10,9 +11,9 @@ $(document).ready(function () {
     }
   })
 
-  getEgg();
-})
+  queryTableData();
 
+})
 
 //Register functions.
 
@@ -59,8 +60,50 @@ function validateFormData(data) {
 
 //Edit functions.
 
-
 //Table functions.
+function queryTableData() {
+  let eggs = getEggs();
+  console.log(eggs);
+  eggs.forEach(egg => {
+    createTable(egg);
+  });
+}
+
+function createTable(egg) {
+  var name = egg.name;
+  var birthday = egg.birthday;
+  var languages = egg.languages;
+  var parent = egg.parent
+  var secondParent = egg.secondParent
+
+  var tableBody = document.getElementById("tableBody");
+  console.log(tableBody);
+  var newRow = tableBody.insertRow(tableBody.rows.length);
+  console.log(newRow);
+
+  var cell1 = newRow.insertCell(0);
+  var cell2 = newRow.insertCell(1);
+  var cell3 = newRow.insertCell(2);
+  var cell4 = newRow.insertCell(3);
+  var cell5 = newRow.insertCell(4);
+
+  cell1.innerHTML = name;
+  cell2.innerHTML = birthday;
+  cell3.innerHTML = languages.join(", ");
+  cell4.innerHTML = parent;
+  cell5.innerHTML = secondParent;
+};
+
+function getSelectedLanguages() {
+  var selectedLanguages = [];
+  var checkboxes = document.querySelectorAll('input[name="languages[]"]:checked');
+
+  checkboxes.forEach(function (checkbox) {
+    selectedLanguages.push(checkbox.value);
+  });
+
+  return selectedLanguages;
+}
 
 //Query functions.
 
@@ -78,13 +121,7 @@ function createEgg(egg) {
   }
 }
 
-function editEgg() {
-}
-
-function deleteEgg() {
-}
-
-function getEgg() {
+function getEggs() {
   let eggs = [];
   try {
     for (let index = 0; index < localStorage.length; index++) {
@@ -105,4 +142,10 @@ function getDBLength() {
     console.log(e);
   }
   return null;
+}
+
+function editEgg() {
+}
+
+function deleteEgg() {
 }
