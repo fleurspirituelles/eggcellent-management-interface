@@ -45,6 +45,6 @@ That's it! You're now ready to explore and work with the QSMP Eggs Web Interface
 
 ### License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the [MIT License](LICENSE).
 
 You are free to use, modify, and distribute this project for personal and commercial purposes. Please refer to the [MIT License](https://opensource.org/licenses/MIT) for detailed information on the terms and conditions of the license.
