@@ -21,13 +21,13 @@ Please note that this interface is a work in progress. We are continuously enhan
 
 **1. Clone the repository:**
   ```
-  git clone https://github.com/your-username/qsmp-eggs-web-interface.git
+  git clone https://github.comfleurspirituelles/eggcellent-management-interface.git
   ```
 
 **2. Open the project:**
 - Navigate to the project directory:
   ```
-  cd qsmp-eggs-web-interface
+  cd eggcellent-management-interface
   ```
 
 **3. Run the interface:**
