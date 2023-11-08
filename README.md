@@ -51,7 +51,7 @@ This structure represents the key components of this project, including director
 
 **1. Clone the repository:**
   ```
-  git clone https://github.comfleurspirituelles/eggcellent-management-interface.git
+  git clone https://github.com/fleurspirituelles/eggcellent-management-interface.git
   ```
 
 **2. Open the project:**
