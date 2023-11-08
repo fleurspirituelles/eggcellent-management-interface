@@ -182,7 +182,6 @@ function editEgg(egg) {
       localStorage.setItem(egg.id, JSON.stringify(egg));
       console.log("Succesfully edited egg data!")
       return true;
-
     } catch (e) {
       console.log(e)
     }
@@ -206,11 +205,11 @@ function getIdFromUrl() {
   var url = window.location.href;
   var partes = url.split('?');
   if (partes.length > 1) {
-    var parametros = partes[1].split('&');
-    for (var i = 0; i < parametros.length; i++) {
-      var parametro = parametros[i].split('=');
-      if (parametro[0] === 'id') {
-        id = parametro[1];
+    var parameters = partes[1].split('&');
+    for (var i = 0; i < parameters.length; i++) {
+      var parameter = parameters[i].split('=');
+      if (parameter[0] === 'id') {
+        id = parameter[1];
       }
     }
   }
@@ -226,10 +225,10 @@ function generateNumber() {
 }
 
 function verifyIfIdExists(id) {
-  var chavesLocalStorage = Object.keys(localStorage);
+  var keysLocalStorage = Object.keys(localStorage);
 
-  for (var i = 0; i < chavesLocalStorage.length; i++) {
-    var chave = chavesLocalStorage[i];
+  for (var i = 0; i < keysLocalStorage.length; i++) {
+    var chave = keysLocalStorage[i];
     if (parseInt(chave) === id) {
       return true;
     }
