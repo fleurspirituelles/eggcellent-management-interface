@@ -17,6 +17,33 @@ This repository showcases the development of a web interface for managing QSMP e
 
 Please note that this interface is a work in progress. We are continuously enhancing and refining its functionality to ensure a seamless and user-friendly experience for managing QSMP eggs.
 
+## Project Structure
+
+Below is a simplified project structure to help you navigate the key files and directories in the QSMP Eggs Web Interface project:
+
+  ```
+  ├── assets/
+  │ ├── images/
+  │ │ ├── juanaflippa.png
+  │ │
+  │ ├── scripts/
+  │ │ ├── script.js
+  │ │
+  │ ├── styles/
+  │ │ ├── style.css
+  │
+  ├── pages/
+  │ ├── index.html
+  │ ├── register.html
+  │ ├── edit.html
+  │
+  ├── README.md
+  │
+  └── LICENSE
+  ```
+
+This structure represents the key components of this project, including directories for images, scripts, styles, HTML pages, and other essential files. This layout should help you find your way around the project and locate specific files or directories.
+
 ### Getting Started
 
 **1. Clone the repository:**
