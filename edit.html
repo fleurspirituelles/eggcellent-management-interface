@@ -14,15 +14,15 @@
 <body>
 
 	<div class="container mt-5">
-		<form>
+		<form id="editEgg">
 			<input type="hidden" id="eggId">
 			<div class="mb-3">
 				<label for="nameInput" class="form-label">Name</label>
-				<input type="text" class="form-control" id="nameInput">
+				<input type="text" class="form-control" id="name">
 			</div>
 			<div class="mb-3">
 				<label for="birthdayInput" class="form-label">Birthday</label>
-				<input type="text" class="form-control" id="birthdayInput" data-toggle="datepicker"
+				<input type="text" class="form-control" id="birthday" data-toggle="datepicker"
 					data-date-format="dd/mm/yyyy">
 			</div>
 			<div class="mb-3">
@@ -50,14 +50,14 @@
 			</div>
 			<div class="mb-3">
 				<label class="form-label">First Parent</label>
-				<select class="form-select" name="parent1" id="parent1Select" required>
+				<select class="form-select" name="parent1" id="parentSelect" required>
 					<option value="Parent 1">Parent 1</option>
 					<option value="Parent 2">Parent 2</option>
 				</select>
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Second Parent</label>
-				<select class="form-select" name="parent2" id="parent2Select">
+				<select class="form-select" name="parent2" id="secondParentSelect">
 					<option value="">Select Second Parent (Optional)</option>
 					<option value="Parent 1">Parent 1</option>
 					<option value="Parent 2">Parent 2</option>

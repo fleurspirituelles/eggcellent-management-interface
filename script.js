@@ -1,18 +1,35 @@
 
 $(document).ready(function () {
+  var address = window.location.href;
+  if (address.indexOf("index.html") !== -1) {
+    queryTableData();
+  }
 
-  $('#registerEgg').submit(e => {
-    e.preventDefault()
-    if (validateFormData(e)) {
-      let egg = queryFormData();
-      egg.id = getDBLength();
-      console.log(egg);
-      createEgg(egg)
-    }
-  })
+  if (address.indexOf("register.html") !== -1) {
+    $('#registerEgg').submit(e => {
+      e.preventDefault()
+      if (validateFormData(e)) {
+        let egg = queryFormData();
+        egg.id = getDBLength();
+        createEgg(egg)
+      }
+    });
+  }
 
-  queryTableData();
+  if (address.indexOf("edit.html") !== -1) {
+    var id = getIdFromUrl();
+    var egg = getEgg(id);
+    createEditForm(egg, id);
 
+    $('#editEgg').submit(e => {
+      e.preventDefault()
+      if (validateFormData(e)) {
+        let egg = queryFormData();
+        egg.id = id;
+        editEgg(egg)
+      }
+    });
+  }
 })
 
 //Register functions.
@@ -25,18 +42,15 @@ function queryFormData() {
     parent: $('#parentSelect').val(),
     second_parent: $('#secondParentSelect').val()
   }
-
   return egg;
 }
 
 function validateFormData(data) {
   let selectedParent = $('#parentSelect');
   let selectedLanguage = $('input[name="languages[]"]');
-  console.log(selectedLanguage);
   let checked = false;
 
   for (language of selectedLanguage) {
-    console.log(language);
     if (language.checked) {
       checked = true;
       break;
@@ -53,17 +67,26 @@ function validateFormData(data) {
     console.log("Select a parent.")
     return false;
   } else {
-    //let response = updateData();
     return true;
   }
 }
 
+
 //Edit functions.
+function createEditForm(egg, id) {
+  $('#eggId').val(id);
+  $('#name').val(egg.name);
+  $('#birthday').val(egg.birthday);
+  egg.languages.forEach(function (language) {
+    $('input[name="languages[]"][value="' + language + '"]').prop('checked', true);
+  });
+  $('#parentSelect').val(egg.parent);
+  $('#secondParentSelect').val(egg.second_parent);
+}
 
 //Table functions.
 function queryTableData() {
   let eggs = getEggs();
-  console.log(eggs);
   eggs.forEach(egg => {
     createTable(egg);
   });
@@ -73,25 +96,35 @@ function createTable(egg) {
   var name = egg.name;
   var birthday = egg.birthday;
   var languages = egg.languages;
-  var parent = egg.parent
-  var secondParent = egg.secondParent
+  var parent = egg.parent;
+  var secondParent = egg.second_parent;
+  var editButton = $('<button class="btn btn-secondary" id="editButton"><img src="edit.png" alt="" srcset=""></button>');
+  var deleteButton = $('<button class="btn btn-danger" id="deleteButton"><img src="delete.png" alt="" srcset=""></button>');
+
+  $(editButton).click(e => {
+    window.location.href = "./edit.html?id=" + egg.id;
+  })
+  $(deleteButton).click(e => {
+    console.log("Delete button clicked.")
+  })
+
 
   var tableBody = document.getElementById("tableBody");
-  console.log(tableBody);
   var newRow = tableBody.insertRow(tableBody.rows.length);
-  console.log(newRow);
 
   var cell1 = newRow.insertCell(0);
   var cell2 = newRow.insertCell(1);
   var cell3 = newRow.insertCell(2);
   var cell4 = newRow.insertCell(3);
   var cell5 = newRow.insertCell(4);
+  var cell6 = newRow.insertCell(5);
 
   cell1.innerHTML = name;
   cell2.innerHTML = birthday;
   cell3.innerHTML = languages.join(", ");
   cell4.innerHTML = parent;
   cell5.innerHTML = secondParent;
+  $(cell6).append(editButton).append(deleteButton);
 };
 
 function getSelectedLanguages() {
@@ -135,6 +168,16 @@ function getEggs() {
   return null;
 }
 
+function getEgg(id) {
+  try {
+    var egg = JSON.parse(localStorage.getItem(id));
+    return egg;
+  } catch (e) {
+    console.log(e);
+  }
+  return null;
+}
+
 function getDBLength() {
   try {
     return localStorage.length;
@@ -144,8 +187,36 @@ function getDBLength() {
   return null;
 }
 
-function editEgg() {
+function editEgg(egg) {
+  if (egg.id != null) {
+    try {
+      localStorage.setItem(egg.id, JSON.stringify(egg));
+      console.log("Succesfully edited egg data!")
+      return true;
+
+    } catch (e) {
+      console.log(e)
+    }
+    return false;
+  }
 }
 
+
 function deleteEgg() {
+}
+
+function getIdFromUrl() {
+  var id;
+  var url = window.location.href;
+  var partes = url.split('?');
+  if (partes.length > 1) {
+    var parametros = partes[1].split('&');
+    for (var i = 0; i < parametros.length; i++) {
+      var parametro = parametros[i].split('=');
+      if (parametro[0] === 'id') {
+        id = parametro[1];
+      }
+    }
+  }
+  return id;
 }
