@@ -1,6 +1,7 @@
 ## QSMP Eggs Web Interface
 
 This repository showcases the development of a web interface for managing QSMP eggs. The interface allows the simulation of resource registration, viewing of stored resources, editing of resource data, and resource removal, with feedback on the success or any data validation issues. Data is stored using local storage.
+
 ### Features:
 
 - **Resource Registration:** Simulate the process of registering a new QSMP egg, complete with data validation checks to ensure a successful registration.
@@ -17,7 +18,7 @@ This repository showcases the development of a web interface for managing QSMP e
 
 Please note that this interface is a work in progress. We are continuously enhancing and refining its functionality to ensure a seamless and user-friendly experience for managing QSMP eggs.
 
-## Project Structure
+### Project Structure
 
 Below is a simplified project structure to help you navigate the key files and directories in the QSMP Eggs Web Interface project:
 
@@ -69,6 +70,16 @@ This structure represents the key components of this project, including director
 - We look forward to your involvement in this exciting project! 🥚
 
 That's it! You're now ready to explore and work with the QSMP Eggs Web Interface project. Enjoy managing your QSMP eggs!
+
+### Acknowledgments
+
+We would like to acknowledge the QSMP community and the valuable resources they have provided, including the [QSMP Eggs Wiki](https://qsmp.fandom.com/wiki/Eggs), which offers in-depth information about QSMP eggs. This project is inspired by the fascinating world of QSMP and its unique egg management.
+
+We also extend our appreciation to the open-source community for their contributions and tools that have made this project possible.
+
+Thank you to everyone who has supported and contributed to this project!
+
+*Rest in peace, Juanaflippa.*
 
 ### License
 
