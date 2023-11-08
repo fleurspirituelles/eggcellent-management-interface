@@ -1,10 +1,10 @@
 $(document).ready(function () {
   var address = window.location.href;
-  if (address.indexOf("index.html") !== -1) {
+  if (address.indexOf("pages/index.html") !== -1) {
     queryTableData();
   }
 
-  if (address.indexOf("register.html") !== -1) {
+  if (address.indexOf("pages/register.html") !== -1) {
     $('#registerEgg').submit(e => {
       e.preventDefault()
       if (validateFormData(e)) {
@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
   }
 
-  if (address.indexOf("edit.html") !== -1) {
+  if (address.indexOf("pages/edit.html") !== -1) {
     var id = getIdFromUrl();
     var egg = getEgg(id);
     createEditForm(egg, id);
@@ -29,9 +29,9 @@ $(document).ready(function () {
       }
     });
   }
-})
+});
 
-//Register functions.
+// Register functions.
 function queryFormData() {
   let egg = {
     name: $('#name').val(),
@@ -58,10 +58,7 @@ function validateFormData(data) {
   if (!checked) {
     console.log("At least one language must be selected.")
     return false;
-  } else if (
-    selectedParent === "" ||
-    selectedParent === null
-  ) {
+  } else if (selectedParent === "" || selectedParent === null) {
     console.log("Select a parent.")
     return false;
   } else {
@@ -69,7 +66,7 @@ function validateFormData(data) {
   }
 }
 
-//Edit functions.
+// Edit functions.
 function createEditForm(egg, id) {
   $('#eggId').val(id);
   $('#name').val(egg.name);
@@ -81,7 +78,7 @@ function createEditForm(egg, id) {
   $('#secondParentSelect').val(egg.second_parent);
 }
 
-//Table functions.
+// Table functions.
 function queryTableData() {
   let eggs = getEggs();
   eggs.forEach(egg => {
@@ -134,14 +131,13 @@ function getSelectedLanguages() {
   return selectedLanguages;
 }
 
-//Query functions.
+// Query functions.
 function createEgg(egg) {
   if (egg.id != null) {
     try {
       localStorage.setItem(egg.id, JSON.stringify(egg));
-      console.log("Succesfully added egg data!")
+      console.log("Successfully added egg data!")
       return true;
-
     } catch (e) {
       console.log(e)
     }
@@ -180,7 +176,7 @@ function editEgg(egg) {
   if (egg.id != null) {
     try {
       localStorage.setItem(egg.id, JSON.stringify(egg));
-      console.log("Succesfully edited egg data!")
+      console.log("Successfully edited egg data!")
       return true;
     } catch (e) {
       console.log(e)
@@ -192,7 +188,7 @@ function editEgg(egg) {
 function deleteEgg(id) {
   try {
     localStorage.removeItem(id);
-    console.log("Succesfully deleted egg data!");
+    console.log("Successfully deleted egg data!");
     cleanTableData();
     queryTableData();
   } catch (e) {
@@ -228,8 +224,8 @@ function verifyIfIdExists(id) {
   var keysLocalStorage = Object.keys(localStorage);
 
   for (var i = 0; i < keysLocalStorage.length; i++) {
-    var chave = keysLocalStorage[i];
-    if (parseInt(chave) === id) {
+    var key = keysLocalStorage[i];
+    if (parseInt(key) === id) {
       return true;
     }
   }
