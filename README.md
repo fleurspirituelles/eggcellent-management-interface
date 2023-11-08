@@ -47,6 +47,8 @@ This structure represents the key components of this project, including director
 
 ### Getting Started
 
+![image](https://github.com/fleurspirituelles/eggcellent-management-interface/assets/132085026/79646c54-d4c1-429e-bfb0-61ca24df1743)
+
 **1. Clone the repository:**
   ```
   git clone https://github.comfleurspirituelles/eggcellent-management-interface.git
