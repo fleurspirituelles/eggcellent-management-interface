@@ -95,8 +95,8 @@ function createTable(egg) {
   var languages = egg.languages;
   var parent = egg.parent;
   var secondParent = egg.second_parent;
-  var editButton = $('<button class="btn btn-secondary" id="editButton"><img id="editButtonImage" src="edit.png" alt="An image of a pen hovering over a piece of paper, representing the editing button."></button>');
-  var deleteButton = $('<button class="btn btn-danger" id="deleteButton"><img id="deleteButtonImage" src="delete.png" alt="An image of a garbage bin, symbolizing the delete button."></button>');
+  var editButton = $('<button class="btn btn-secondary mx-1" id="editButton">Edit</button>');
+  var deleteButton = $('<button class="btn btn-danger mx-1" id="deleteButton">Delete</button>');
 
   $(editButton).click(e => {
     window.location.href = "./edit.html?id=" + egg.id;
