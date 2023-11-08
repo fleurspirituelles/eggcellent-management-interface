@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   var address = window.location.href;
   if (address.indexOf("index.html") !== -1) {
@@ -10,7 +9,7 @@ $(document).ready(function () {
       e.preventDefault()
       if (validateFormData(e)) {
         let egg = queryFormData();
-        egg.id = getDBLength();
+        egg.id = generateRandomId();
         createEgg(egg)
       }
     });
@@ -33,7 +32,6 @@ $(document).ready(function () {
 })
 
 //Register functions.
-
 function queryFormData() {
   let egg = {
     name: $('#name').val(),
@@ -71,7 +69,6 @@ function validateFormData(data) {
   }
 }
 
-
 //Edit functions.
 function createEditForm(egg, id) {
   $('#eggId').val(id);
@@ -98,16 +95,15 @@ function createTable(egg) {
   var languages = egg.languages;
   var parent = egg.parent;
   var secondParent = egg.second_parent;
-  var editButton = $('<button class="btn btn-secondary" id="editButton"><img src="edit.png" alt="" srcset=""></button>');
-  var deleteButton = $('<button class="btn btn-danger" id="deleteButton"><img src="delete.png" alt="" srcset=""></button>');
+  var editButton = $('<button class="btn btn-secondary" id="editButton"><img id="editButtonImage" src="edit.png" alt="An image of a pen hovering over a piece of paper, representing the editing button."></button>');
+  var deleteButton = $('<button class="btn btn-danger" id="deleteButton"><img id="deleteButtonImage" src="delete.png" alt="An image of a garbage bin, symbolizing the delete button."></button>');
 
   $(editButton).click(e => {
     window.location.href = "./edit.html?id=" + egg.id;
   })
   $(deleteButton).click(e => {
-    console.log("Delete button clicked.")
+    deleteEgg(egg.id);
   })
-
 
   var tableBody = document.getElementById("tableBody");
   var newRow = tableBody.insertRow(tableBody.rows.length);
@@ -139,7 +135,6 @@ function getSelectedLanguages() {
 }
 
 //Query functions.
-
 function createEgg(egg) {
   if (egg.id != null) {
     try {
@@ -157,8 +152,11 @@ function createEgg(egg) {
 function getEggs() {
   let eggs = [];
   try {
-    for (let index = 0; index < localStorage.length; index++) {
-      eggs.push(JSON.parse(localStorage.getItem(index)));
+    for (var key in localStorage) {
+      if (!isNaN(key)) {
+        var egg = JSON.parse(localStorage.getItem(key));
+        eggs.push(egg);
+      }
     }
     console.log(eggs);
     return eggs;
@@ -172,15 +170,6 @@ function getEgg(id) {
   try {
     var egg = JSON.parse(localStorage.getItem(id));
     return egg;
-  } catch (e) {
-    console.log(e);
-  }
-  return null;
-}
-
-function getDBLength() {
-  try {
-    return localStorage.length;
   } catch (e) {
     console.log(e);
   }
@@ -201,8 +190,15 @@ function editEgg(egg) {
   }
 }
 
-
-function deleteEgg() {
+function deleteEgg(id) {
+  try {
+    localStorage.removeItem(id);
+    console.log("Succesfully deleted egg data!");
+    cleanTableData();
+    queryTableData();
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 function getIdFromUrl() {
@@ -219,4 +215,33 @@ function getIdFromUrl() {
     }
   }
   return id;
+}
+
+function cleanTableData() {
+  $('#tableBody').empty();
+}
+
+function generateNumber() {
+  return Math.floor(Math.random() * 1000);
+}
+
+function verifyIfIdExists(id) {
+  var chavesLocalStorage = Object.keys(localStorage);
+
+  for (var i = 0; i < chavesLocalStorage.length; i++) {
+    var chave = chavesLocalStorage[i];
+    if (parseInt(chave) === id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function generateRandomId() {
+  var randomId = generateNumber();
+  while (verifyIfIdExists(randomId)) {
+    randomId = generateNumber();
+  }
+  return randomId;
 }
