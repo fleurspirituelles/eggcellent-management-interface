@@ -2,7 +2,7 @@
 
 This repository showcases the development of a web interface for managing QSMP eggs. The interface allows the simulation of resource registration, viewing of stored resources, editing of resource data, and resource removal, with feedback on the success or any data validation issues. Data is stored using local storage.
 
-### Features:
+### Features
 
 - **Resource Registration:** Simulate the process of registering a new QSMP egg, complete with data validation checks to ensure a successful registration.
 
@@ -14,7 +14,7 @@ This repository showcases the development of a web interface for managing QSMP e
 
 - **Data Storage:** All data entered into the interface is securely stored using local storage.
 
-### Work in Progress:
+### Work in Progress
 
 Please note that this interface is a work in progress. We are continuously enhancing and refining its functionality to ensure a seamless and user-friendly experience for managing QSMP eggs.
 
