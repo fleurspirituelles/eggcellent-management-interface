@@ -34,6 +34,57 @@ public class AppTest {
         delete.click();
     }
 
+    @Test
+    @DisplayName("Should edit a registered egg")
+    void shouldEditARegisteredEgg() throws InterruptedException{
+        addNewEgg();
+
+        Thread.sleep(1000);
+
+        editEgg();
+    }
+
+    private void editEgg() {
+        WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
+        edit.click();
+
+        WebElement name = driver.findElement(By.id("name"));
+        WebElement birthday = driver.findElement(By.id("birthday"));
+        WebElement firstParent = driver.findElement(By.id("parentSelect"));
+        WebElement secondParent = driver.findElement(By.id("secondParentSelect"));
+        List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type='checkbox']"));
+
+        Faker faker = new Faker();
+
+        name.clear();
+        birthday.clear();
+
+        name.sendKeys(faker.name().fullName());
+
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        birthday.sendKeys(simpleDateFormat.format(faker.date().past(5, TimeUnit.DAYS)));
+
+        Random random = new Random();
+        int minimumCheckBoxes = 1;
+        int checkBoxSelected = random.nextInt(checkboxes.size()) + minimumCheckBoxes;
+        for (int i = 0; i < Math.min(checkBoxSelected, checkboxes.size()); i++) {
+            checkboxes.get(i).click();
+        }
+
+        List<String> firstParentOptions = firstParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
+        firstParent.sendKeys(firstParentOptions.get((int) Math.floor(Math.random() * firstParentOptions.size())));
+
+        List<String> secondParentOptions = secondParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
+        secondParent.sendKeys(secondParentOptions.get((int) Math.floor(Math.random() * secondParentOptions.size())));
+
+        WebElement registerButton = driver.findElement(By.xpath("//button[text()='Edit']"));
+        registerButton.click();
+
+        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
+        returnIndex.click();
+    }
+
 
     private void addNewEgg() {
         System.setProperty("webdriver.edge.driver", url);
