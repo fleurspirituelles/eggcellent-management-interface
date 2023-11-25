@@ -8,6 +8,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class AppTest {
@@ -31,9 +32,9 @@ public class AppTest {
 
         WebElement name = driver.findElement(By.id("name"));
         WebElement birthday = driver.findElement(By.id("birthday"));
-        List<WebElement> languages = driver.findElements(By.className("form-check-input"));
         WebElement firstParent = driver.findElement(By.id("parentSelect"));
         WebElement secondParent = driver.findElement(By.id("secondParentSelect"));
+        List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type='checkbox']"));
 
         Faker faker = new Faker();
 
@@ -43,9 +44,11 @@ public class AppTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         birthday.sendKeys(simpleDateFormat.format(faker.date().past(5, TimeUnit.DAYS)));
 
-        int alteracoes = (int) Math.floor(Math.random() * languages.size());
-        for (int i = 0; i < alteracoes; i++) {
-            languages.get((int) Math.floor(Math.random() * languages.size())).click();
+        Random random = new Random();
+        int minimumCheckBoxes = 1;
+        int checkBoxSelected = random.nextInt(checkboxes.size()) + minimumCheckBoxes;
+        for (int i = 0; i < Math.min(checkBoxSelected, checkboxes.size()); i++) {
+            checkboxes.get(i).click();
         }
 
         List<String> firstParentOptions = firstParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
