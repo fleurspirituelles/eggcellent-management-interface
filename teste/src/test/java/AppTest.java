@@ -23,6 +23,15 @@ public class AppTest {
         addNewEgg();
     }
 
+    @Test
+    @DisplayName("Should delete a registered egg")
+    void shouldDeleteARegisteredEgg() {
+        addNewEgg();
+        WebElement delete = driver.findElement(By.xpath("//button[text()='Delete']"));
+        delete.click();
+    }
+
+
     private void addNewEgg() {
         System.setProperty("webdriver.edge.driver", url);
         driver.get(pageIndex);
