@@ -25,8 +25,11 @@ public class AppTest {
 
     @Test
     @DisplayName("Should delete a registered egg")
-    void shouldDeleteARegisteredEgg() {
+    void shouldDeleteARegisteredEgg() throws InterruptedException{
         addNewEgg();
+
+        Thread.sleep(1000);
+
         WebElement delete = driver.findElement(By.xpath("//button[text()='Delete']"));
         delete.click();
     }
