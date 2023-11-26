@@ -47,11 +47,11 @@ public class AppTest {
 
 
     @Nested
-    @DisplayName("TestBlankSpace")
+    @DisplayName("Test of blank spaces")
     class TestBlankSpace{
         @Test
         @DisplayName("Should return the name as a blank space")
-        void shouldReturnABlankSpace() throws InterruptedException{
+        void shouldReturnABlankSpace(){
             addNewEgg();
 
             WebElement belowName = editElementToABlankSpace("name");
@@ -61,7 +61,7 @@ public class AppTest {
 
         @Test
         @DisplayName("Should return the birthday as a blank space")
-        void ShouldReturnTheBirthdayAsABlankSpace() throws InterruptedException {
+        void ShouldReturnTheBirthdayAsABlankSpace() {
             addNewEgg();
 
             WebElement belowBirthday = editElementToABlankSpace("birthday");
