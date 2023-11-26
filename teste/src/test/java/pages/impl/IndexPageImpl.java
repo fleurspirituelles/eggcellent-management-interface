@@ -25,7 +25,7 @@ public final class IndexPageImpl implements IndexPage {
     public static IndexPage openPage(WebDriver driver) {
         Objects.requireNonNull(driver, "The web driver cannot be null!");
 
-        driver.get(getPageURI());
+        driver.get("file:"+getPageURI());
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.titleIs("QSMP Eggs Showcase"));
         var eggs = findEggs(driver);
