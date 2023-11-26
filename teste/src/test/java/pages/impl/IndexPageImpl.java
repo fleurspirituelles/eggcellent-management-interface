@@ -26,10 +26,13 @@ public final class IndexPageImpl implements IndexPage {
         Objects.requireNonNull(driver, "The web driver cannot be null!");
 
         driver.get("file:"+getPageURI());
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.titleIs("QSMP Eggs Showcase"));
         var eggs = findEggs(driver);
 
+        return new IndexPageImpl(driver, eggs);
+    }
+
+    public static IndexPage movingTo(WebDriver driver) {
+        var eggs = findEggs(driver);
         return new IndexPageImpl(driver, eggs);
     }
 
@@ -53,6 +56,9 @@ public final class IndexPageImpl implements IndexPage {
     }
 
     private static List<EggComponentImpl> findEggs(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("tableBody")));
+
         return driver.findElements(By.tagName("tr"))
                 .stream()
                 .map(EggComponentImpl::new)
@@ -83,7 +89,9 @@ public final class IndexPageImpl implements IndexPage {
 
     @Override
     public RegisterPage goToRegisterPage() {
-        return null;
+        var registerPageAnchor = driver.findElement(By.linkText("Add New Egg"));
+        registerPageAnchor.click();
+        return RegisterPageImpl.movingTo(driver);
     }
 
     @Override
