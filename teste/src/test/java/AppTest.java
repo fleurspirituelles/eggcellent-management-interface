@@ -1,4 +1,5 @@
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -6,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import util.WebDriverProvider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,10 +17,14 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class AppTest {
-    String url = "D:\\Faculdade\\Códigos\\Visual Studio\\Site a ser testado - TC1\\eggcellent-management-interface\\msedgedriver.exe";
+    public static final String BROWSER_NAME = "chrome";
     String pageIndex = "D:\\Faculdade\\Códigos\\Visual Studio\\Site a ser testado - TC1\\eggcellent-management-interface\\pages\\index.html";
-    WebDriver driver = new EdgeDriver();
+    private WebDriver driver;
 
+    @BeforeEach
+    void setUp() {
+        driver = WebDriverProvider.getByBrowserName(BROWSER_NAME);
+    }
 
     @Test
     @DisplayName("should register  a new egg")
@@ -90,7 +96,6 @@ public class AppTest {
     }
 
     private void addNewEgg() {
-        System.setProperty("webdriver.edge.driver", url);
         driver.get(pageIndex);
 
         WebElement addNewEggButton = driver.findElement(By.linkText("Add New Egg"));
