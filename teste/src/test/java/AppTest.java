@@ -58,6 +58,16 @@ public class AppTest {
 
             assertThat(belowName.getText()).isBlank();
         }
+
+        @Test
+        @DisplayName("Should return the birthday as a blank space")
+        void ShouldReturnTheBirthdayAsABlankSpace() throws InterruptedException {
+            addNewEgg();
+
+            WebElement belowBirthday = editElementToABlankSpace("birthday");
+
+            assertThat(belowBirthday.getText()).isBlank();
+        }
     }
 
     private WebElement editElementToABlankSpace(String element) {
