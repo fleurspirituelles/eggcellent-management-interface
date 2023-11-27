@@ -29,24 +29,29 @@ public final class EditPageImpl implements EditPage {
             throw new IllegalArgumentException("The egg index must be a positive number. Provided: " + eggIndex);
 
         driver.get(getPageURI(eggIndex));
-        waitPage(driver);
+        var page = new EditPageImpl(driver);
+        page.waitPageLoad();
 
-        return new EditPageImpl(driver);
+        return page;
     }
 
     public static EditPageImpl movingPage(WebDriver driver) {
         Objects.requireNonNull(driver, "The driver cannot be null!");
-        waitPage(driver);
-        return new EditPageImpl(driver);
-    }
 
-    private static void waitPage(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.titleIs("QSMP Eggs Editing"));
+        var page = new EditPageImpl(driver);
+        page.waitPageLoad();
+
+        return page;
     }
 
     private static String getPageURI(int eggIndex) {
         return getPagesDirectory() + "/edit.html?id=" + eggIndex;
+    }
+
+    @Override
+    public void waitPageLoad() {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.titleIs("QSMP Eggs Editing"));
     }
 
     @Override

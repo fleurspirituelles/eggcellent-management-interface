@@ -3,6 +3,7 @@ package pages.impl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
 import util.Utilities;
@@ -44,13 +45,21 @@ public final class IndexPageImpl implements IndexPage {
     }
 
     private static List<EggComponentImpl> findEggs(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("tableBody")));
-
+        wainPage(driver);
         return driver.findElements(By.tagName("tr"))
                 .stream()
                 .map(EggComponentImpl::new)
                 .toList();
+    }
+
+    private static void wainPage(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("tableBody")));
+    }
+
+    @Override
+    public void waitPageLoad() {
+        wainPage(driver);
     }
 
     @Override
@@ -68,6 +77,11 @@ public final class IndexPageImpl implements IndexPage {
     @Override
     public void deleteEggByIndex(int index) {
         getEggByIndex(index).delete();
+    }
+
+    @Override
+    public void deleteLast() {
+        deleteEggByIndex(eggs.size() - 1);
     }
 
     @Override

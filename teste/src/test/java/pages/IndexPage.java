@@ -10,4 +10,6 @@ public interface IndexPage extends Page {
     EditPage editEggByIndex(int index);
 
     RegisterPage goToRegisterPage();
+
+    void deleteLast();
 }

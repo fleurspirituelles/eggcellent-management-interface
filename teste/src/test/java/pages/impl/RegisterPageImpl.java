@@ -28,23 +28,26 @@ public final class RegisterPageImpl implements RegisterPage {
         Objects.requireNonNull(driver, "The driver cannot be null");
 
         driver.get("file:" + getPageURI());
-        waitPage(driver);
+        var page = new RegisterPageImpl(driver);
+        page.waitPageLoad();
 
-        return new RegisterPageImpl(driver);
+        return page;
     }
 
     public static  RegisterPageImpl movingTo(WebDriver driver) {
-        waitPage(driver);
-        return new RegisterPageImpl(driver);
-    }
-
-    private static void waitPage(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.titleIs("QSMP Eggs Registration"));
+        var page = new RegisterPageImpl(driver);
+        page.waitPageLoad();
+        return page;
     }
 
     private static String getPageURI() {
         return getPagesDirectory() + "/register.html";
+    }
+
+    @Override
+    public void waitPageLoad() {
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.titleIs("QSMP Eggs Registration"));
     }
 
     @Override
