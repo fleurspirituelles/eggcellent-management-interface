@@ -74,37 +74,6 @@ public class AppTest {
         }
     }
 
-    private WebElement editElementToABlankSpace(String element) {
-        return elementToLetBlank(element);
-    }
-
-    private WebElement elementToLetBlank(String element) {
-        eraseElement(element);
-
-        return elementToCheck(element);
-    }
-
-    private void eraseElement(String element) {
-        WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
-        edit.click();
-
-        WebElement webElement = driver.findElement(By.id(element));
-        webElement.clear();
-
-        WebElement editButton = driver.findElement(By.xpath("//button[text()='Edit']"));
-        editButton.click();
-
-        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
-        returnIndex.click();
-    }
-
-    private WebElement elementToCheck(String element) {
-        if (element.equals("name")){
-            return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        }
-        return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-    }
-
     private IndexPage addNewEgg() {
         var register = RegisterPageImpl.openPage(driver);
 
@@ -184,5 +153,38 @@ public class AppTest {
     private static void editParents(EditPage edit) {
         edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
         edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
+    }
+
+
+
+    private WebElement editElementToABlankSpace(String element) {
+        return elementToLetBlank(element);
+    }
+
+    private WebElement elementToLetBlank(String element) {
+        eraseElement(element);
+
+        return elementToCheck(element);
+    }
+
+    private void eraseElement(String element) {
+        WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
+        edit.click();
+
+        WebElement webElement = driver.findElement(By.id(element));
+        webElement.clear();
+
+        WebElement editButton = driver.findElement(By.xpath("//button[text()='Edit']"));
+        editButton.click();
+
+        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
+        returnIndex.click();
+    }
+
+    private WebElement elementToCheck(String element) {
+        if (element.equals("name")){
+            return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        }
+        return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
     }
 }
