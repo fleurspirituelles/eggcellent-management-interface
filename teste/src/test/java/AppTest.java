@@ -75,6 +75,15 @@ public class AppTest {
     }
 
     private WebElement editElementToABlankSpace(String element) {
+        eraseElement(element);
+
+        if (element.equals("name")){
+            return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        }
+        return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+    }
+
+    private void eraseElement(String element) {
         WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
         edit.click();
 
@@ -86,11 +95,6 @@ public class AppTest {
 
         WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
         returnIndex.click();
-
-        if (element.equals("name")){
-            return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        }
-        return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
     }
 
     private IndexPage addNewEgg() {
