@@ -95,17 +95,25 @@ public class AppTest {
     private IndexPage addNewEgg() {
         var register = RegisterPageImpl.openPage(driver);
 
+        fillAllField(register);
+
+        return register.registryEgg();
+    }
+
+    private static void fillAllField(RegisterPageImpl register) {
+        fakerNameAndBirthday(register);
+
+        randomCheckBox(register);
+
+        randomParent(register);
+    }
+
+    private static void fakerNameAndBirthday(RegisterPageImpl register) {
         Faker faker = new Faker();
         register.writeName(faker.name().fullName());
 
         var fakeBirthday = faker.date().birthday();
         register.writeBirthday(fakeBirthday.toString());
-
-        randomCheckBox(register);
-
-        randomParent(register);
-
-        return register.registryEgg();
     }
 
     private static void randomCheckBox(RegisterPageImpl register) {
