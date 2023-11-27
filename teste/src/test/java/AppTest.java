@@ -103,8 +103,7 @@ public class AppTest {
 
         randomCheckBox(register);
 
-        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
-        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
+        randomParent(register);
 
         return register.registryEgg();
     }
@@ -117,6 +116,11 @@ public class AppTest {
         for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
             register.selectLanguageByIndex(i);
         }
+    }
+
+    private static void randomParent(RegisterPageImpl register) {
+        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
+        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
     }
 
     private IndexPage editEgg(IndexPage index) {
