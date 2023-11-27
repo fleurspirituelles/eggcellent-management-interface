@@ -137,13 +137,7 @@ public class AppTest {
 
         editNameAndBirthday(edit);
 
-        Random random = new Random();
-        int minimumCheckBoxes = 1;
-        int numberOfLanguages = edit.getNumberOfLanguages();
-        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckBoxes;
-        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
-            edit.selectLanguageByIndex(i);
-        }
+        ediCheckBox(edit);
 
         edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
         edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
@@ -160,5 +154,15 @@ public class AppTest {
         edit.writeName(faker.name().fullName());
         var fakeBirthday = faker.date().birthday();
         edit.writeBirthday(fakeBirthday.toString());
+    }
+
+    private static void ediCheckBox(EditPage edit) {
+        Random random = new Random();
+        int minimumCheckBoxes = 1;
+        int numberOfLanguages = edit.getNumberOfLanguages();
+        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckBoxes;
+        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
+            edit.selectLanguageByIndex(i);
+        }
     }
 }
