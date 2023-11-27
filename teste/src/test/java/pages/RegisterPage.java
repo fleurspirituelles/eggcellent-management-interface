@@ -5,11 +5,17 @@ public interface RegisterPage extends Page {
 
     void writeBirthday(String birthday);
 
+    int getNumberOfLanguages();
+
     void selectLanguageByIndex(int index);
 
     void selectParentByIndex(int index);
 
+    int getNumberOfParentOptions();
+
     void selectSecondParentByIndex(int index);
+
+    int getNumberSecondParentOptions();
 
     IndexPage backToIndex();
 

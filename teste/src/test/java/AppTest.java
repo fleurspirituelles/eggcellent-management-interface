@@ -1,15 +1,15 @@
 import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
+import pages.impl.IndexPageImpl;
+import pages.impl.RegisterPageImpl;
 import util.WebDriverProvider;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,9 +26,16 @@ public class AppTest {
         driver = WebDriverProvider.getByBrowserName(BROWSER_NAME);
     }
 
+    @AfterEach
+    void tearDown() {
+        driver.quit();
+    }
+
     @Test
     @DisplayName("should register  a new egg")
-    void shouldRegisterANewEgg() {addNewEgg();}
+    void shouldRegisterANewEgg() {
+        addNewEgg();
+    }
 
     @Test
     @DisplayName("Should delete a registered egg")
@@ -96,43 +103,26 @@ public class AppTest {
     }
 
     private void addNewEgg() {
-        driver.get(pageIndex);
-
-        WebElement addNewEggButton = driver.findElement(By.linkText("Add New Egg"));
-        addNewEggButton.click();
-
-        WebElement name = driver.findElement(By.id("name"));
-        WebElement birthday = driver.findElement(By.id("birthday"));
-        WebElement firstParent = driver.findElement(By.id("parentSelect"));
-        WebElement secondParent = driver.findElement(By.id("secondParentSelect"));
-        List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type='checkbox']"));
+        var register = RegisterPageImpl.openPage(driver);
 
         Faker faker = new Faker();
+        register.writeName(faker.name().fullName());
 
-        name.sendKeys(faker.name().fullName());
-
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        birthday.sendKeys(simpleDateFormat.format(faker.date().past(5, TimeUnit.DAYS)));
+        var fakeBirthday = faker.date().birthday();
+        register.writeBirthday(fakeBirthday.toString());
 
         Random random = new Random();
-        int minimumCheckBoxes = 1;
-        int checkBoxSelected = random.nextInt(checkboxes.size()) + minimumCheckBoxes;
-        for (int i = 0; i < Math.min(checkBoxSelected, checkboxes.size()); i++) {
-            checkboxes.get(i).click();
+        int minimumCheckboxes = 1;
+        int numberOfLanguages = register.getNumberOfLanguages();
+        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckboxes;
+        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
+            register.selectLanguageByIndex(i);
         }
 
-        List<String> firstParentOptions = firstParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
-        firstParent.sendKeys(firstParentOptions.get((int) Math.floor(Math.random() * firstParentOptions.size())));
+        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
+        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
 
-        List<String> secondParentOptions = secondParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
-        secondParent.sendKeys(secondParentOptions.get((int) Math.floor(Math.random() * secondParentOptions.size())));
-
-        WebElement registerButton = driver.findElement(By.xpath("//button[text()='Register']"));
-        registerButton.click();
-
-        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
-        returnIndex.click();
+        register.registryEgg();
     }
     
     private void editEgg() {

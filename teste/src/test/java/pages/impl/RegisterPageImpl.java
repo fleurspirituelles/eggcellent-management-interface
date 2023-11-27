@@ -79,6 +79,11 @@ public final class RegisterPageImpl implements RegisterPage {
     }
 
     @Override
+    public int getNumberOfLanguages() {
+        return driver.findElements(By.name("languages[]")).size();
+    }
+
+    @Override
     public void selectParentByIndex(int index) {
         var parentElement = driver.findElement(By.id("parentSelect"));
         var parentSelect = new Select(parentElement);
@@ -86,10 +91,20 @@ public final class RegisterPageImpl implements RegisterPage {
     }
 
     @Override
+    public int getNumberOfParentOptions() {
+        return driver.findElements(By.cssSelector("#parentSelect option")).size();
+    }
+
+    @Override
     public void selectSecondParentByIndex(int index) {
         var secondParentElement = driver.findElement(By.id("secondParentSelect"));
         var secondParentSelect = new Select(secondParentElement);
         secondParentSelect.selectByIndex(index);
+    }
+
+    @Override
+    public int getNumberSecondParentOptions() {
+        return driver.findElements(By.cssSelector("#secondParentSelect option")).size();
     }
 
     @Override
@@ -103,6 +118,6 @@ public final class RegisterPageImpl implements RegisterPage {
     public IndexPage registryEgg() {
         var registryButton = driver.findElement(By.xpath("//button[text()='Register']"));
         registryButton.click();
-        return IndexPageImpl.movingTo(driver);
+        return backToIndex();
     }
 }
