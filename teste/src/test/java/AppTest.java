@@ -135,13 +135,17 @@ public class AppTest {
     private IndexPage editEgg(IndexPage index) {
         var edit = index.editEggByIndex(0);
 
+        fullFillTheEditFields(edit);
+
+        return edit.editEgg();
+    }
+
+    private static void fullFillTheEditFields(EditPage edit) {
         editNameAndBirthday(edit);
 
         ediCheckBox(edit);
 
         editParents(edit);
-
-        return edit.editEgg();
     }
 
     private static void editNameAndBirthday(EditPage edit) {
