@@ -1,23 +1,29 @@
 package pages;
 
+import java.util.List;
+
 public interface EditPage extends Page {
     int getEggId();
 
     void writeName(String name);
 
+    String getName();
+
     void writeBirthday(String name);
 
-    void selectLanguageByValue(String language);
+    String getBirthday();
 
     void selectLanguageByIndex(int index);
 
-    void selectParentByValue(String parent);
+    List<String> getSelectedLanguages();
 
     void selectParentByIndex(int index);
 
-    void selectSecondParentByValue(String secondParent);
+    String getParent();
 
     void selectSecondParentByIndex(int index);
+
+    String getSecondParent();
 
     IndexPage backToIndex();
 
