@@ -75,6 +75,10 @@ public class AppTest {
     }
 
     private WebElement editElementToABlankSpace(String element) {
+        return elementToLetBlank(element);
+    }
+
+    private WebElement elementToLetBlank(String element) {
         eraseElement(element);
 
         return elementToCheck(element);
