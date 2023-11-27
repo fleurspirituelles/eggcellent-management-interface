@@ -52,11 +52,9 @@ public class AppTest {
     @Test
     @DisplayName("Should edit a registered egg")
     void shouldEditARegisteredEgg() throws InterruptedException{
-        addNewEgg();
-
-        Thread.sleep(1000);
-
-        editEgg();
+        var index = addNewEgg();
+        index = editEgg(index);
+        // TODO: where is the assertion?
     }
 
 
@@ -126,44 +124,29 @@ public class AppTest {
         return register.registryEgg();
     }
     
-    private void editEgg() {
-        WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
-        edit.click();
-
-        WebElement name = driver.findElement(By.id("name"));
-        WebElement birthday = driver.findElement(By.id("birthday"));
-        WebElement firstParent = driver.findElement(By.id("parentSelect"));
-        WebElement secondParent = driver.findElement(By.id("secondParentSelect"));
-        List<WebElement> checkboxes = driver.findElements(By.xpath("//input[@type='checkbox']"));
+    private IndexPage editEgg(IndexPage index) {
+        var edit = index.editEggByIndex(0);
 
         Faker faker = new Faker();
 
-        name.clear();
-        birthday.clear();
+        edit.clearName();
+        edit.clearBirthday();
 
-        name.sendKeys(faker.name().fullName());
-
-        String pattern = "dd/MM/yyyy";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        birthday.sendKeys(simpleDateFormat.format(faker.date().past(5, TimeUnit.DAYS)));
+        edit.writeName(faker.name().fullName());
+        var fakeBirthday = faker.date().birthday();
+        edit.writeBirthday(fakeBirthday.toString());
 
         Random random = new Random();
         int minimumCheckBoxes = 1;
-        int checkBoxSelected = random.nextInt(checkboxes.size()) + minimumCheckBoxes;
-        for (int i = 0; i < Math.min(checkBoxSelected, checkboxes.size()); i++) {
-            checkboxes.get(i).click();
+        int numberOfLanguages = edit.getNumberOfLanguages();
+        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckBoxes;
+        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
+            edit.selectLanguageByIndex(i);
         }
 
-        List<String> firstParentOptions = firstParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
-        firstParent.sendKeys(firstParentOptions.get((int) Math.floor(Math.random() * firstParentOptions.size())));
+        edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
+        edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
 
-        List<String> secondParentOptions = secondParent.findElements(By.tagName("option")).stream().map(option -> option.getAttribute("value")).toList();
-        secondParent.sendKeys(secondParentOptions.get((int) Math.floor(Math.random() * secondParentOptions.size())));
-
-        WebElement editButton = driver.findElement(By.xpath("//button[text()='Edit']"));
-        editButton.click();
-
-        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
-        returnIndex.click();
+        return edit.editEgg();
     }
 }
