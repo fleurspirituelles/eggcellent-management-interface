@@ -86,7 +86,7 @@ public final class IndexPageImpl implements IndexPage {
 
     @Override
     public EditPage editEggByIndex(int index) {
-        return getEggByIndex(index).edit();
+        return getEggByIndex(index).edit(driver);
     }
 
     @Override

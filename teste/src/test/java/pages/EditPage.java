@@ -7,9 +7,13 @@ public interface EditPage extends Page {
 
     void writeName(String name);
 
+    void clearName();
+
     String getName();
 
     void writeBirthday(String name);
+
+    void clearBirthday();
 
     String getBirthday();
 
@@ -17,13 +21,19 @@ public interface EditPage extends Page {
 
     List<String> getSelectedLanguages();
 
+    int getNumberOfLanguages();
+
     void selectParentByIndex(int index);
 
     String getParent();
 
+    int getNumberParentOptions();
+
     void selectSecondParentByIndex(int index);
 
     String getSecondParent();
+
+    int getNumberSecondParentOptions();
 
     IndexPage backToIndex();
 

@@ -35,7 +35,7 @@ public final class EditPageImpl implements EditPage {
         return page;
     }
 
-    public static EditPageImpl movingPage(WebDriver driver) {
+    public static EditPageImpl movingTo(WebDriver driver) {
         Objects.requireNonNull(driver, "The driver cannot be null!");
 
         var page = new EditPageImpl(driver);
@@ -69,6 +69,11 @@ public final class EditPageImpl implements EditPage {
     }
 
     @Override
+    public void clearName() {
+        getNameField().clear();
+    }
+
+    @Override
     public String getName() {
         return getNameField().getText();
     }
@@ -81,6 +86,11 @@ public final class EditPageImpl implements EditPage {
     public void writeBirthday(String birthday) {
         var birthdayField = getBirthdayField();
         birthdayField.sendKeys(birthday);
+    }
+
+    @Override
+    public void clearBirthday() {
+        getBirthdayField().clear();
     }
 
     @Override
@@ -113,6 +123,11 @@ public final class EditPageImpl implements EditPage {
     }
 
     @Override
+    public int getNumberOfLanguages() {
+        return driver.findElements(By.name("languages[]")).size();
+    }
+
+    @Override
     public void selectParentByIndex(int index) {
         var parentSelect = new Select(getParentElement());
         parentSelect.selectByIndex(index);
@@ -121,6 +136,11 @@ public final class EditPageImpl implements EditPage {
     @Override
     public String getParent() {
         return getParentElement().getText();
+    }
+
+    @Override
+    public int getNumberParentOptions() {
+        return driver.findElements(By.cssSelector("#parentSelector option")).size();
     }
 
     private WebElement getParentElement() {
@@ -138,6 +158,11 @@ public final class EditPageImpl implements EditPage {
         return getSecondParentElement().getText();
     }
 
+    @Override
+    public int getNumberSecondParentOptions() {
+        return driver.findElements(By.cssSelector("#secondParentSelect option")).size();
+    }
+
     private WebElement getSecondParentElement() {
         return driver.findElement(By.id("secondParentSelect"));
     }
@@ -151,9 +176,9 @@ public final class EditPageImpl implements EditPage {
 
     @Override
     public IndexPage editEgg() {
-        var editEgg = driver.findElement(By.tagName("button"));
+        var editEgg = driver.findElement(By.xpath("//button[text()='Edit']"));
         editEgg.click();
-        return IndexPageImpl.movingTo(driver);
+        return backToIndex();
     }
 
     @Override

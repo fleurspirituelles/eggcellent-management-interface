@@ -1,5 +1,7 @@
 package pages;
 
+import org.openqa.selenium.WebDriver;
+
 import java.util.List;
 
 public interface EggComponent {
@@ -16,5 +18,5 @@ public interface EggComponent {
 
     void delete();
 
-    EditPage edit();
+    EditPage edit(WebDriver driver);
 }

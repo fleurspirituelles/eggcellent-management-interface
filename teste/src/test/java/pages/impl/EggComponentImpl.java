@@ -1,10 +1,14 @@
 package pages.impl;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.EditPage;
 import pages.EggComponent;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,7 +58,10 @@ public final class EggComponentImpl implements EggComponent {
     }
 
     @Override
-    public EditPage edit() {
-        return null;
+    public EditPage edit(WebDriver driver) {
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("editButton")));
+        driver.findElement(By.id("editButton")).click();
+        return EditPageImpl.movingTo(driver);
     }
 }
