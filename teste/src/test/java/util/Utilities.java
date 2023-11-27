@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 public final class Utilities {
-    private static final String PAGES_CONFIG_PROPERTIES_PATH = System.getProperty("user.dir") + "../pages/impl/";
+    private static final String PAGES_CONFIG_PROPERTIES_PATH = System.getProperty("user.dir") +
+            "/src/test/resources/pages/impl/pages-config.properties";
 
     public static String getPagesDirectory() {
         var properties = new Properties();
+        System.out.println(PAGES_CONFIG_PROPERTIES_PATH);
         try (var stream = new FileInputStream(PAGES_CONFIG_PROPERTIES_PATH)) {
             properties.load(stream);
         }
