@@ -12,7 +12,7 @@ import java.util.Random;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
-    public static final String BROWSER_NAME = "chrome";
+    public static final String BROWSER_NAME = "edge";
     String pageIndex = "D:\\Faculdade\\Códigos\\Visual Studio\\Site a ser testado - TC1\\eggcellent-management-interface\\pages\\index.html";
     private WebDriver driver;
 
@@ -101,6 +101,15 @@ public class AppTest {
         var fakeBirthday = faker.date().birthday();
         register.writeBirthday(fakeBirthday.toString());
 
+        randomCheckBox(register);
+
+        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
+        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
+
+        return register.registryEgg();
+    }
+
+    private static void randomCheckBox(RegisterPageImpl register) {
         Random random = new Random();
         int minimumCheckboxes = 1;
         int numberOfLanguages = register.getNumberOfLanguages();
@@ -108,13 +117,8 @@ public class AppTest {
         for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
             register.selectLanguageByIndex(i);
         }
-
-        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
-        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
-
-        return register.registryEgg();
     }
-    
+
     private IndexPage editEgg(IndexPage index) {
         var edit = index.editEggByIndex(0);
 
