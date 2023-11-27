@@ -3,6 +3,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.EditPage;
 import pages.IndexPage;
 import pages.impl.RegisterPageImpl;
 import util.WebDriverProvider;
@@ -134,14 +135,7 @@ public class AppTest {
     private IndexPage editEgg(IndexPage index) {
         var edit = index.editEggByIndex(0);
 
-        Faker faker = new Faker();
-
-        edit.clearName();
-        edit.clearBirthday();
-
-        edit.writeName(faker.name().fullName());
-        var fakeBirthday = faker.date().birthday();
-        edit.writeBirthday(fakeBirthday.toString());
+        editNameAndBirthday(edit);
 
         Random random = new Random();
         int minimumCheckBoxes = 1;
@@ -155,5 +149,16 @@ public class AppTest {
         edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
 
         return edit.editEgg();
+    }
+
+    private static void editNameAndBirthday(EditPage edit) {
+        Faker faker = new Faker();
+
+        edit.clearName();
+        edit.clearBirthday();
+
+        edit.writeName(faker.name().fullName());
+        var fakeBirthday = faker.date().birthday();
+        edit.writeBirthday(fakeBirthday.toString());
     }
 }
