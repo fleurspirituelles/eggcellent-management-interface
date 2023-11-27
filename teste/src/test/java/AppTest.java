@@ -139,8 +139,7 @@ public class AppTest {
 
         ediCheckBox(edit);
 
-        edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
-        edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
+        editParents(edit);
 
         return edit.editEgg();
     }
@@ -164,5 +163,10 @@ public class AppTest {
         for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
             edit.selectLanguageByIndex(i);
         }
+    }
+
+    private static void editParents(EditPage edit) {
+        edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
+        edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
     }
 }
