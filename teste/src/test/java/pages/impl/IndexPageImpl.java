@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
+import util.Utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+
+import static util.Utilities.getPagesDirectory;
 
 public final class IndexPageImpl implements IndexPage {
     private final WebDriver driver;
@@ -37,22 +40,7 @@ public final class IndexPageImpl implements IndexPage {
     }
 
     private static String getPageURI() {
-        var properties = new Properties();
-
-        try (var stream = new FileInputStream("./pages-config.properties")) {
-            properties.load(stream);
-        }
-        catch (IOException error) {
-            throw new MissingConfigurationException("It is missing pages-config file detailing pages.directory.name " +
-                    "prop which is intended to be use to facilitate tests configuration.");
-        }
-
-        var pagesDirectory = properties.getProperty("pages.directory.name");
-        if (pagesDirectory == null)
-            throw new MissingConfigurationException("It is missing pages.directory.name property detailing the " +
-                    "absolute path to the pages folder");
-
-        return pagesDirectory +  "index.html";
+        return getPagesDirectory() + "/index.html";
     }
 
     private static List<EggComponentImpl> findEggs(WebDriver driver) {

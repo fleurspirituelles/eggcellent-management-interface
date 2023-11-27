@@ -7,12 +7,15 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.IndexPage;
 import pages.RegisterPage;
+import util.Utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Properties;
+
+import static util.Utilities.getPagesDirectory;
 
 public final class RegisterPageImpl implements RegisterPage {
     private final WebDriver driver;
@@ -41,23 +44,7 @@ public final class RegisterPageImpl implements RegisterPage {
     }
 
     private static String getPageURI() {
-        var properties = new Properties();
-
-        try (var stream = new FileInputStream("./pages-config.properties")) {
-            properties.load(stream);
-        }
-        catch (IOException e) {
-            throw new MissingConfigurationException("File page-config.properties is missing. It is need to provide " +
-                    "configurations to finding the pages!");
-        }
-
-        var directory = properties.getProperty("pages.directory.name");
-
-        if (directory == null)
-            throw new MissingConfigurationException("Property pages.directory.name is missing. It should detail the " +
-                    "absolute path to app pages folder");
-
-        return directory + "/register.html";
+        return getPagesDirectory() + "/register.html";
     }
 
     @Override
