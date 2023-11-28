@@ -42,17 +42,13 @@ public class AppTest {
 
     @Test
     @DisplayName("Should edit a registered egg")
-    void shouldEditARegisteredEgg() throws InterruptedException{
+    void shouldEditARegisteredEgg(){
         var index = addNewEgg();
-        initialElement initial = getInitialElement();
+        elements element = getElements(index);
+        assertThatElement(element);
+    }
 
-        index = editEgg(index);
-
-        editedElement edited = getEditedElement();
-
-        assertThat(initial.name()).isNotEqualTo(edited.nameEdited());
-        assertThat(initial.birthday()).isNotEqualTo(edited.birthdayEdited());
-        assertThat(initial.firtsParent()).isNotEqualTo(edited.firtsParentEdited());
+    private record elements(initialElement initial, editedElement edited) {
     }
 
     @Nested
@@ -194,13 +190,20 @@ public class AppTest {
     }
 
 
+    private elements getElements(IndexPage index) {
+        initialElement initial = getInitialElement();
+
+        index = editEgg(index);
+
+        editedElement edited = getEditedElement();
+        return new elements(initial, edited);
+    }
     private record initialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
     private initialElement getInitialElement() {
         WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
         WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
         WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        initialElement initial = new initialElement(name, birthday, firtsParent);
-        return initial;
+        return new initialElement(name, birthday, firtsParent);
     }
 
     private record editedElement(WebElement nameEdited, WebElement birthdayEdited, WebElement firtsParentEdited) {}
@@ -208,7 +211,11 @@ public class AppTest {
         WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
         WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
         WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        editedElement edited = new editedElement(nameEdited, birthdayEdited, firtsParentEdited);
-        return edited;
+        return new editedElement(nameEdited, birthdayEdited, firtsParentEdited);
+    }
+    private static void assertThatElement(elements element) {
+        assertThat(element.initial().name()).isNotEqualTo(element.edited().nameEdited());
+        assertThat(element.initial().birthday()).isNotEqualTo(element.edited().birthdayEdited());
+        assertThat(element.initial().firtsParent()).isNotEqualTo(element.edited().firtsParentEdited());
     }
 }
