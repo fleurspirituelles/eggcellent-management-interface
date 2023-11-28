@@ -21,8 +21,8 @@ public class AppTest {
         driver = WebDriverProvider.getByBrowserName(BROWSER_NAME);
     }
 
-    /*@AfterEach
-    void tearDown() {driver.quit();}*/
+    @AfterEach
+    void tearDown() {driver.quit();}
 
     @Test
     @DisplayName("should register  a new egg")
@@ -35,13 +35,6 @@ public class AppTest {
     void shouldRegister1000EggsInSequence() {
         add1000Eggs();
     }
-
-    private void add1000Eggs() {
-        for (int i = 0; i < 1000; i++) {
-            addNewEgg();
-        }
-    }
-
 
     @Test
     @DisplayName("Should delete a registered egg")
@@ -92,6 +85,12 @@ public class AppTest {
         fillAllField(register);
 
         return register.registryEgg();
+    }
+
+    private void add1000Eggs() {
+        for (int i = 0; i < 1000; i++) {
+            addNewEgg();
+        }
     }
 
     private static void fillAllField(RegisterPageImpl register) {
