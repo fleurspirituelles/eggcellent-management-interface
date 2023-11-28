@@ -21,16 +21,23 @@ public class AppTest {
         driver = WebDriverProvider.getByBrowserName(BROWSER_NAME);
     }
 
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-    }
+    /*@AfterEach
+    void tearDown() {driver.quit();}*/
 
     @Test
     @DisplayName("should register  a new egg")
     void shouldRegisterANewEgg() {
         addNewEgg();
     }
+
+    @Test
+    @DisplayName("Should register 1000 eggs in sequence")
+    void shouldRegister10EggsInSequence() {
+        for (int i = 0; i < 1000; i++) {
+            addNewEgg();
+        }
+    }
+
 
     @Test
     @DisplayName("Should delete a registered egg")
