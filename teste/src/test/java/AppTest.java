@@ -34,6 +34,14 @@ public class AppTest {
     @DisplayName("Should register 1000 eggs in sequence")
     void shouldRegister1000EggsInSequence() {
         add1000Eggs();
+        java.util.List<WebElement> trElements = driver.findElements(By.tagName("tr"));
+        int visibleTrCount = 0;
+        for (WebElement trElement : trElements) {
+            if (trElement.isDisplayed()) {
+                visibleTrCount++;
+            }
+        }
+        assertThat(visibleTrCount-1).isEqualTo(1000);
     }
 
     @Test
