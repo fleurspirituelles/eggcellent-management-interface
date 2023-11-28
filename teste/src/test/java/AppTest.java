@@ -78,6 +78,18 @@ public class AppTest {
 
             - Anote todos os testes com @Tag("SystemTest")
         */
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should register a new egg")
+        void shouldRegisterANewEgg() {
+            var index = addNewRandomEgg();
+            var softly = new SoftAssertions();
+
+            softly.assertThatCode(() -> index.waitEggsLoad(Duration.ofSeconds(5))).doesNotThrowAnyException();
+            softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
+            softly.assertAll();
+        }
     }
 
     @Nested
@@ -129,17 +141,6 @@ public class AppTest {
             index.deleteLast();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
-    }
-
-    @Test
-    @DisplayName("Should register a new egg")
-    void shouldRegisterANewEgg() {
-        var index = addNewRandomEgg();
-        var softly = new SoftAssertions();
-
-        softly.assertThatCode(() -> index.waitEggsLoad(Duration.ofSeconds(5))).doesNotThrowAnyException();
-        softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
-        softly.assertAll();
     }
 
     @Test
