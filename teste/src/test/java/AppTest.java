@@ -23,7 +23,9 @@ public class AppTest {
     }
 
     @AfterEach
-    void tearDown() {driver.quit();}
+    void tearDown() {
+        driver.quit();
+    }
 
     @Test
     @DisplayName("should register  a new egg")
@@ -53,11 +55,11 @@ public class AppTest {
     @DisplayName("Should edit a registered egg")
     void shouldEditARegisteredEgg(){
         var index = addNewEgg();
-        elements element = getElements(index);
+        Elements element = getElements(index);
         assertThatElement(element);
     }
 
-    private record elements(initialElement initial, editedElement edited) {
+    private record Elements(InitialElement initial, EditedElement edited) {
     }
 
     @Nested
@@ -67,9 +69,7 @@ public class AppTest {
         @DisplayName("Should return the name as a blank space")
         void shouldReturnABlankSpace(){
             addNewEgg();
-
             WebElement belowName = editElementToABlankSpace("name");
-
             assertThat(belowName.getText()).isBlank();
         }
 
@@ -77,18 +77,14 @@ public class AppTest {
         @DisplayName("Should return the birthday as a blank space")
         void ShouldReturnTheBirthdayAsABlankSpace() {
             addNewEgg();
-
             WebElement belowBirthday = editElementToABlankSpace("birthday");
-
             assertThat(belowBirthday.getText()).isBlank();
         }
     }
 
     private IndexPage addNewEgg() {
         var register = RegisterPageImpl.openPage(driver);
-
         fillAllField(register);
-
         return register.registryEgg();
     }
 
@@ -111,9 +107,7 @@ public class AppTest {
 
     private static void fillAllField(RegisterPageImpl register) {
         fakerNameAndBirthday(register);
-
         randomCheckBox(register);
-
         randomParent(register);
     }
 
@@ -130,6 +124,7 @@ public class AppTest {
         int minimumCheckboxes = 1;
         int numberOfLanguages = register.getNumberOfLanguages();
         int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckboxes;
+
         for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
             register.selectLanguageByIndex(i);
         }
@@ -142,17 +137,13 @@ public class AppTest {
 
     private IndexPage editEgg(IndexPage index) {
         var edit = index.editEggByIndex(0);
-
         fullFillTheEditFields(edit);
-
         return edit.editEgg();
     }
 
     private static void fullFillTheEditFields(EditPage edit) {
         editNameAndBirthday(edit);
-
         ediCheckBox(edit);
-
         editParents(edit);
     }
 
@@ -172,6 +163,7 @@ public class AppTest {
         int minimumCheckBoxes = 1;
         int numberOfLanguages = edit.getNumberOfLanguages();
         int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckBoxes;
+
         for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
             edit.selectLanguageByIndex(i);
         }
@@ -182,15 +174,12 @@ public class AppTest {
         edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
     }
 
-
-
     private WebElement editElementToABlankSpace(String element) {
         return elementToLetBlank(element);
     }
 
     private WebElement elementToLetBlank(String element) {
         eraseElement(element);
-
         return elementToCheck(element);
     }
 
@@ -215,31 +204,32 @@ public class AppTest {
         return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
     }
 
-
-    private elements getElements(IndexPage index) {
-        initialElement initial = getInitialElement();
-
+    private Elements getElements(IndexPage index) {
+        InitialElement initial = getInitialElement();
         index = editEgg(index);
-
-        editedElement edited = getEditedElement();
-        return new elements(initial, edited);
+        EditedElement edited = getEditedElement();
+        return new Elements(initial, edited);
     }
-    private record initialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
-    private initialElement getInitialElement() {
+
+    private record InitialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
+
+    private InitialElement getInitialElement() {
         WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
         WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
         WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        return new initialElement(name, birthday, firtsParent);
+        return new InitialElement(name, birthday, firtsParent);
     }
 
-    private record editedElement(WebElement nameEdited, WebElement birthdayEdited, WebElement firtsParentEdited) {}
-    private editedElement getEditedElement() {
+    private record EditedElement(WebElement nameEdited, WebElement birthdayEdited, WebElement firtsParentEdited) {}
+
+    private EditedElement getEditedElement() {
         WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
         WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
         WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        return new editedElement(nameEdited, birthdayEdited, firtsParentEdited);
+        return new EditedElement(nameEdited, birthdayEdited, firtsParentEdited);
     }
-    private static void assertThatElement(elements element) {
+
+    private static void assertThatElement(Elements element) {
         assertThat(element.initial().name()).isNotEqualTo(element.edited().nameEdited());
         assertThat(element.initial().birthday()).isNotEqualTo(element.edited().birthdayEdited());
         assertThat(element.initial().firtsParent()).isNotEqualTo(element.edited().firtsParentEdited());
