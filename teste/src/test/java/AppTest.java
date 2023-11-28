@@ -44,23 +44,16 @@ public class AppTest {
     @DisplayName("Should edit a registered egg")
     void shouldEditARegisteredEgg() throws InterruptedException{
         var index = addNewEgg();
-        WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-        WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-
+        initialElement initial = getInitialElement();
 
         index = editEgg(index);
 
-        WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-        WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
+        editedElement edited = getEditedElement();
 
-        assertThat(name).isNotEqualTo(nameEdited);
-        assertThat(birthday).isNotEqualTo(birthdayEdited);
-        assertThat(firtsParent).isNotEqualTo(firtsParentEdited);
-
+        assertThat(initial.name()).isNotEqualTo(edited.nameEdited());
+        assertThat(initial.birthday()).isNotEqualTo(edited.birthdayEdited());
+        assertThat(initial.firtsParent()).isNotEqualTo(edited.firtsParentEdited());
     }
-
 
     @Nested
     @DisplayName("Test of blank spaces")
@@ -198,5 +191,24 @@ public class AppTest {
             return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
         }
         return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+    }
+
+
+    private record initialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
+    private initialElement getInitialElement() {
+        WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+        WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
+        initialElement initial = new initialElement(name, birthday, firtsParent);
+        return initial;
+    }
+
+    private record editedElement(WebElement nameEdited, WebElement birthdayEdited, WebElement firtsParentEdited) {}
+    private editedElement getEditedElement() {
+        WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+        WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
+        editedElement edited = new editedElement(nameEdited, birthdayEdited, firtsParentEdited);
+        return edited;
     }
 }
