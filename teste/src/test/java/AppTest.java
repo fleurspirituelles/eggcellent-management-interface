@@ -60,7 +60,7 @@ public class AppTest {
                 - Egg com alguma informação inválida (4 possíveis testes) 
                     - Nome nulo ou vazio (1 teste) v
                     - Data de nascimento no formato inválido (1 teste) v
-                    - Nenhum checkbox selecionado (1 teste) 
+                    - Nenhum checkbox selecionado (1 teste) v
                     - Nenhum parent selecionado (1 teste) 
 
             Teste extra:
@@ -109,6 +109,7 @@ public class AppTest {
         }
 
         @Test
+        @Tag("SystemTest")
         @DisplayName("Should not add a egg with null checkBox")
         void shouldNotAddAEggWithNullCheckBox() {
             var registerPage = pagesFactory.openRegisterPage(driver);
@@ -118,7 +119,6 @@ public class AppTest {
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
-
 
         @RepeatedTest(1000)
         @DisplayName("Should register 1000 new egg")
