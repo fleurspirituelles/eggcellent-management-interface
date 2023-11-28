@@ -8,6 +8,7 @@ import pages.EditPage;
 import pages.IndexPage;
 import pages.PagesFactory;
 import pages.RegisterPage;
+import pages.impl.EditPageImpl;
 import pages.impl.PagesFactoryImpl;
 import util.WebDriverProvider;
 import util.WebDriverProviderImpl;
@@ -31,10 +32,10 @@ public class AppTest {
         faker = new Faker();
     }
 
-    @AfterEach
+    /*@AfterEach
     void tearDown() {
         driver.quit();
-    }
+    }*/
 
     /*
         Obeservações:
@@ -55,14 +56,6 @@ public class AppTest {
     @DisplayName("When registering new eggs")
     class WhenRegisteringNewEggs {
         /*
-            Classes válidas:
-                - Egg com todas as informações válidas. (1 teste é suficiente)
-                    - Nome não nulo, não vazio
-                    - Data de nascimento no formato válido de data
-                    - Ao menos um checkbox selecionado
-                    - Parent selecionado
-                    - Second parent selecionado (pode render um teste extra - um selecioando ele, outro não)
-
             Classes inválidas:
                 - Egg com alguma informação inválida (4 possíveis testes)
                     - Nome nulo ou vazio (1 teste)
@@ -90,6 +83,19 @@ public class AppTest {
             softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
             softly.assertAll();
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should not add a egg with null birthday")
+        void shouldNotAddAEggWithNullBirthday() {
+            var registerPage = pagesFactory.openRegisterPage(driver);
+            registerPage.writeName(faker.name().fullName());
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectParentByIndex(getRandomParent(registerPage));
+            var index = registerPage.registryEgg();
+            assertThat(index.getNumberOfEggs()).isEqualTo(0);
+        }
+
     }
 
     @Nested
