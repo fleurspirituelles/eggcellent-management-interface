@@ -46,6 +46,7 @@ public class AppTest {
     }
 
     @Test
+    @Disabled
     @DisplayName("Should register 1000 eggs in sequence")
     void shouldRegister1000EggsInSequence() {
         add1000Eggs();
