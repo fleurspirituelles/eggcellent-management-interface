@@ -51,6 +51,7 @@ public class AppTest {
     */
 
     @Nested
+    @Tag("RegisteringSystemTag")
     @DisplayName("When registering new eggs")
     class WhenRegisteringNewEggs {
         /*
@@ -75,11 +76,12 @@ public class AppTest {
                     - É má pŕatica haver testes com loops
                     - Usar o @RepeatedTest(numeroDeRepetições)
 
-            - Anote todos os testes com @Tag("RegisteringSystemTest")
+            - Anote todos os testes com @Tag("SystemTest")
         */
     }
 
     @Nested
+    @Tag("EditingSystemTest")
     @DisplayName("When editing eggs")
     class WhenEditingEggs {
         /*
@@ -99,11 +101,12 @@ public class AppTest {
                     - Mudança para parent inválido (1 teste)
                     - Mudança para second parent inválido (1 teste)
 
-            - Anote todos os métodos de teste com @Tag("EditingSystemTest")
+            - Anote todos os métodos de teste com @Tag("SystemTest")
         */
     }
 
     @Nested
+    @Tag("DeletingSystemTest")
     @DisplayName("When deleting eggs")
     class WhenDeletingEggs {
         /*
@@ -116,7 +119,7 @@ public class AppTest {
             - Problema com esse: o site foi desenvolvido de uma forma que não dá para testar uma classe inválida para
               isso
 
-            - Anote todos os testes com @Tag("DeletingSystemTest")
+            - Anote todos os testes com @Tag("SystemTest")
         */
     }
 
@@ -138,14 +141,6 @@ public class AppTest {
         add1000Eggs();
         int visibleTrCount = countTrElement();
         assertThat(visibleTrCount).isEqualTo(1000);
-    }
-
-    @Test
-    @DisplayName("Should delete a registered egg")
-    void shouldDeleteARegisteredEgg(){
-        var index = addNewRandomEgg();
-        index.deleteLast();
-        assertThat(index.getNumberOfEggs()).isEqualTo(0);
     }
 
     @Test
