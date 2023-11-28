@@ -57,11 +57,11 @@ public class AppTest {
     class WhenRegisteringNewEggs {
         /*
             Classes inválidas:
-                - Egg com alguma informação inválida (4 possíveis testes)
-                    - Nome nulo ou vazio (1 teste)
-                    - Data de nascimento no formato inválido (1 teste)
-                    - Nenhum checkbox selecionado (1 teste)
-                    - Nenhum parent selecionado (1 teste)
+                - Egg com alguma informação inválida (4 possíveis testes) 
+                    - Nome nulo ou vazio (1 teste) v
+                    - Data de nascimento no formato inválido (1 teste) v
+                    - Nenhum checkbox selecionado (1 teste) 
+                    - Nenhum parent selecionado (1 teste) 
 
             Teste extra:
                 - Teste de repetição, ou seja, criar um novo egg repetidas vezes. A implementação atual, porém, está
@@ -97,6 +97,7 @@ public class AppTest {
         }
 
         @Test
+        @Tag("SystemTest")
         @DisplayName("Should not add a egg with null name")
         void shouldNotAddAEggWithNullName() {
             var registerPage = pagesFactory.openRegisterPage(driver);
@@ -105,7 +106,17 @@ public class AppTest {
             registerPage.selectParentByIndex(getRandomParent(registerPage));
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
+        }
 
+        @Test
+        @DisplayName("Should not add a egg with null checkBox")
+        void shouldNotAddAEggWithNullCheckBox() {
+            var registerPage = pagesFactory.openRegisterPage(driver);
+            registerPage.writeName(faker.name().fullName());
+            registerPage.writeBirthday(faker.date().birthday().toString());
+            registerPage.selectParentByIndex(getRandomParent(registerPage));
+            var index = registerPage.registryEgg();
+            assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
 
 
