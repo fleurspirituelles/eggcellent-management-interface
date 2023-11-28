@@ -21,15 +21,21 @@ public final class Utilities {
         var loader = Utilities.class.getClassLoader();
 
         try (var stream = loader.getResourceAsStream(PAGES_CONFIG_PROPERTIES_PATH)) {
+            if (stream == null)
+                throwMissingConfigurationError();
             properties.load(stream);
         }
         catch (IOException e) {
-            throw new MissingConfigurationException(
-                "It is missing tests.config.properties files at resources folder detailing required configurations " +
-                    "to correctly find the pages folder. Please create file: src/test/resources/tests.config.properties"
-            );
+            throwMissingConfigurationError();
         }
 
         return properties;
+    }
+
+    private static void throwMissingConfigurationError() {
+        throw new MissingConfigurationException(
+            "It is missing tests.config.properties files at resources folder detailing required configurations " +
+                "to correctly find the pages folder. Please create file: src/test/resources/tests.config.properties"
+        );
     }
 }
