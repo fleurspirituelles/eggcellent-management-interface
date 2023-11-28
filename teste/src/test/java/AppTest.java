@@ -55,23 +55,6 @@ public class AppTest {
     @Tag("RegisteringSystemTag")
     @DisplayName("When registering new eggs")
     class WhenRegisteringNewEggs {
-        /*
-            Classes inválidas:
-                - Egg com alguma informação inválida (4 possíveis testes) 
-                    - Nome nulo ou vazio (1 teste) v
-                    - Data de nascimento no formato inválido (1 teste) v
-                    - Nenhum checkbox selecionado (1 teste) v
-                    - Nenhum parent selecionado (1 teste) 
-
-            Teste extra:
-                - Teste de repetição, ou seja, criar um novo egg repetidas vezes. A implementação atual, porém, está
-                  errada.
-                    - É má pŕatica haver testes com loops
-                    - Usar o @RepeatedTest(numeroDeRepetições)
-
-            - Anote todos os testes com @Tag("SystemTest")
-        */
-
         @Test
         @Tag("SystemTest")
         @DisplayName("Should register a new egg")
