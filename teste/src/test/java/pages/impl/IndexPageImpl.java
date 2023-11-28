@@ -14,7 +14,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
-import static util.Utilities.getPagesDirectory;
+import static pages.impl.util.Utilities.getPagesDirectory;
 
 public final class IndexPageImpl implements IndexPage {
     private final WebDriver driver;

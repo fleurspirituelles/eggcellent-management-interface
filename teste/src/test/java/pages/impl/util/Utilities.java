@@ -1,4 +1,4 @@
-package util;
+package pages.impl.util;
 
 import pages.impl.MissingConfigurationException;
 

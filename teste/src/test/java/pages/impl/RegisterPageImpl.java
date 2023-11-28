@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.Objects;
 
 
-import static util.Utilities.getPagesDirectory;
+import static pages.impl.util.Utilities.getPagesDirectory;
 
 public final class RegisterPageImpl implements RegisterPage {
     private final WebDriver driver;
