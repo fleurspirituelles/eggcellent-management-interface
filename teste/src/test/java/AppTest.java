@@ -32,10 +32,10 @@ public class AppTest {
         faker = new Faker();
     }
 
-    /*@AfterEach
+    @AfterEach
     void tearDown() {
         driver.quit();
-    }*/
+    }
 
     /*
         Obeservações:
@@ -95,6 +95,18 @@ public class AppTest {
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
+
+        @RepeatedTest(1000)
+        @DisplayName("Should register 1000 new egg")
+        void shouldRegister1000NewEgg() {
+            var index = addNewRandomEgg();
+            var softly = new SoftAssertions();
+
+            softly.assertThatCode(() -> index.waitEggsLoad(Duration.ofSeconds(5))).doesNotThrowAnyException();
+            softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
+            softly.assertAll();
+        }
+
     }
 
     @Nested
