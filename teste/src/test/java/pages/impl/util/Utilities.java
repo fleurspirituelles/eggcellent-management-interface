@@ -2,6 +2,7 @@ package pages.impl.util;
 
 import pages.impl.MissingConfigurationException;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -12,7 +13,7 @@ public final class Utilities {
 
     public static String getPagesDirectory() {
         var properties = new Properties();
-        System.out.println(PAGES_CONFIG_PROPERTIES_PATH);
+
         try (var stream = new FileInputStream(PAGES_CONFIG_PROPERTIES_PATH)) {
             properties.load(stream);
         }
