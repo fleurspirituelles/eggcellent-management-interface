@@ -28,6 +28,8 @@ public class AppTest {
     @DisplayName("should register  a new egg")
     void shouldRegisterANewEgg() {
         addNewEgg();
+        int visibleTrCount = countTrElement();
+        assertThat(visibleTrCount).isEqualTo(1);
     }
 
     @Test
