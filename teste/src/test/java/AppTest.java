@@ -96,6 +96,19 @@ public class AppTest {
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
 
+        @Test
+        @DisplayName("Should not add a egg with null name")
+        void shouldNotAddAEggWithNullName() {
+            var registerPage = pagesFactory.openRegisterPage(driver);
+            registerPage.writeBirthday(faker.date().birthday().toString());
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectParentByIndex(getRandomParent(registerPage));
+            var index = registerPage.registryEgg();
+            assertThat(index.getNumberOfEggs()).isEqualTo(0);
+
+        }
+
+
         @RepeatedTest(1000)
         @DisplayName("Should register 1000 new egg")
         void shouldRegister1000NewEgg() {
