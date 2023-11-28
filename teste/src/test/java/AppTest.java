@@ -32,7 +32,11 @@ public class AppTest {
 
     @Test
     @DisplayName("Should register 1000 eggs in sequence")
-    void shouldRegister10EggsInSequence() {
+    void shouldRegister1000EggsInSequence() {
+        add1000Eggs();
+    }
+
+    private void add1000Eggs() {
         for (int i = 0; i < 1000; i++) {
             addNewEgg();
         }
