@@ -95,7 +95,6 @@ public class AppTest {
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
-
     }
 
     @Nested
@@ -143,20 +142,11 @@ public class AppTest {
         @Test
         @Tag("SystemTest")
         @DisplayName("Should delete a registered egg")
-        void shouldDeleteARegisteredEgg(){
+        void shouldDeleteARegisteredEgg() {
             var index = addNewRandomEgg();
             index.deleteLast();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
-    }
-
-    @Test
-    @Disabled
-    @DisplayName("Should register 1000 eggs in sequence")
-    void shouldRegister1000EggsInSequence() {
-        add1000Eggs();
-        int visibleTrCount = countTrElement();
-        assertThat(visibleTrCount).isEqualTo(1000);
     }
 
     @Test
@@ -235,23 +225,6 @@ public class AppTest {
         for (int i = 0; i < numberOfCheckboxes; i++) {
             register.selectLanguageByIndex(i);
         }
-    }
-
-    private void add1000Eggs() {
-        for (int i = 0; i < 1000; i++) {
-            addNewRandomEgg();
-        }
-    }
-
-    private int countTrElement() {
-        java.util.List<WebElement> trElements = driver.findElements(By.tagName("tr"));
-        int visibleTrCount = 0;
-        for (WebElement trElement : trElements) {
-            if (trElement.isDisplayed()) {
-                visibleTrCount++;
-            }
-        }
-        return visibleTrCount-1;
     }
 
     private IndexPage editEgg(IndexPage index) {
