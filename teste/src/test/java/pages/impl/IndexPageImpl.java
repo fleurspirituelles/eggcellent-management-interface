@@ -51,7 +51,11 @@ public final class IndexPageImpl implements IndexPage {
 
     @Override
     public int getNumberOfEggs() {
-        return getEggsElements().size();
+        if (!getEggsElements().isEmpty()){
+            return getEggsElements().size();
+        }else{
+            return 0;
+        }
     }
 
     @Override
@@ -65,8 +69,7 @@ public final class IndexPageImpl implements IndexPage {
     }
 
     private List<WebElement> getEggsElements() {
-        return new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("#tableBody tr")));
+        return driver.findElements(By.cssSelector("#tableBody tr"));
     }
 
     @Override

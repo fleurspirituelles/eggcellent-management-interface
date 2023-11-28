@@ -34,10 +34,10 @@ public class AppTest {
 
     @Test
     @DisplayName("Should delete a registered egg")
-    void shouldDeleteARegisteredEgg() throws InterruptedException{
+    void shouldDeleteARegisteredEgg(){
         var index = addNewEgg();
         index.deleteLast();
-        // TODO: where is the assertion?
+        assertThat(index.getNumberOfEggs()).isEqualTo(0);
     }
 
     @Test
