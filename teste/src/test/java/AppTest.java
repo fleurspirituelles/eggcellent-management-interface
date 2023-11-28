@@ -44,8 +44,21 @@ public class AppTest {
     @DisplayName("Should edit a registered egg")
     void shouldEditARegisteredEgg() throws InterruptedException{
         var index = addNewEgg();
+        WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+        WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
+
+
         index = editEgg(index);
-        // TODO: where is the assertion?
+
+        WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
+        WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
+        WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
+
+        assertThat(name).isNotEqualTo(nameEdited);
+        assertThat(birthday).isNotEqualTo(birthdayEdited);
+        assertThat(firtsParent).isNotEqualTo(firtsParentEdited);
+
     }
 
 
