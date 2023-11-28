@@ -4,7 +4,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.EditPage;
 import pages.IndexPage;
 import pages.PagesFactory;
@@ -16,17 +15,20 @@ import util.WebDriverProviderImpl;
 import java.time.Duration;
 import java.util.Random;
 
+import static java.lang.Math.floor;
+import static java.lang.Math.min;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 
 public class AppTest {
-    private static final WebDriverProvider driverProvider = new WebDriverProviderImpl();
-    private static final PagesFactory pagesFactory = new PagesFactoryImpl();
+    private final WebDriverProvider driverProvider = new WebDriverProviderImpl();
+    private final PagesFactory pagesFactory = new PagesFactoryImpl();
+    private Faker faker;
     private WebDriver driver;
 
     @BeforeEach
     void setUp() {
         driver = driverProvider.getWebDriver();
+        faker = new Faker();
     }
 
     @AfterEach
@@ -37,9 +39,9 @@ public class AppTest {
     @Test
     @DisplayName("Should register a new egg")
     void shouldRegisterANewEgg() {
-        var index = addNewEgg();
+        var index = addNewRandomEgg();
         var softly = new SoftAssertions();
-        
+
         softly.assertThatCode(() -> index.waitEggsLoad(Duration.ofSeconds(5))).doesNotThrowAnyException();
         softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
         softly.assertAll();
@@ -57,7 +59,7 @@ public class AppTest {
     @Test
     @DisplayName("Should delete a registered egg")
     void shouldDeleteARegisteredEgg(){
-        var index = addNewEgg();
+        var index = addNewRandomEgg();
         index.deleteLast();
         assertThat(index.getNumberOfEggs()).isEqualTo(0);
     }
@@ -65,7 +67,7 @@ public class AppTest {
     @Test
     @DisplayName("Should edit a registered egg")
     void shouldEditARegisteredEgg(){
-        var index = addNewEgg();
+        var index = addNewRandomEgg();
         Elements element = getElements(index);
         assertThatElement(element);
     }
@@ -79,7 +81,7 @@ public class AppTest {
         @Test
         @DisplayName("Should return the name as a blank space")
         void shouldReturnABlankSpace(){
-            addNewEgg();
+            addNewRandomEgg();
             WebElement belowName = editElementToABlankSpace("name");
             assertThat(belowName.getText()).isBlank();
         }
@@ -87,21 +89,62 @@ public class AppTest {
         @Test
         @DisplayName("Should return the birthday as a blank space")
         void ShouldReturnTheBirthdayAsABlankSpace() {
-            addNewEgg();
+            addNewRandomEgg();
             WebElement belowBirthday = editElementToABlankSpace("birthday");
             assertThat(belowBirthday.getText()).isBlank();
         }
     }
 
-    private IndexPage addNewEgg() {
+    private IndexPage addNewRandomEgg() {
         var register = pagesFactory.openRegisterPage(driver);
-        fillAllField(register);
+
+        var name = faker.name().fullName();
+        var birthday = faker.date().birthday().toString();
+        var numberOfCheckboxes = getRandomNumberOfCheckboxes(register);
+        var parentIndex = getRandomParent(register);
+        var secondParentIndex = getRandomSecondParent(register);
+
+        return registryEgg(register, name, birthday, numberOfCheckboxes, parentIndex, secondParentIndex);
+    }
+
+    private int getRandomNumberOfCheckboxes(RegisterPage register) {
+        Random random = new Random()
+                ;
+        int minimumCheckboxes = 1;
+        int numberOfLanguages = register.getNumberOfLanguages();
+        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckboxes;
+
+        return min(checkBoxSelected, numberOfLanguages);
+    }
+
+    private int getRandomParent(RegisterPage register) {
+        return (int) floor(Math.random() * register.getNumberOfParentOptions());
+    }
+
+    private int getRandomSecondParent(RegisterPage register) {
+        return (int) floor(Math.random() * register.getNumberSecondParentOptions());
+    }
+
+    private IndexPage registryEgg(RegisterPage register, String name, String birthday, int numberOfCheckboxes,
+                                  int parentIndex, int secondParentIndex) {
+        register.writeName(name);
+        register.writeBirthday(birthday);
+        selectCheckboxes(numberOfCheckboxes, register);
+        register.selectParentByIndex(parentIndex);
+        register.selectSecondParentByIndex(secondParentIndex);
+
         return register.registryEgg();
+    }
+
+    private void selectCheckboxes(int numberOfCheckboxes, RegisterPage register) {
+        for (int i = 0; i < numberOfCheckboxes; i++) {
+            register.selectLanguageByIndex(i);
+        }
     }
 
     private void add1000Eggs() {
         for (int i = 0; i < 1000; i++) {
-            addNewEgg();
+            addNewRandomEgg();
         }
     }
 
@@ -114,36 +157,6 @@ public class AppTest {
             }
         }
         return visibleTrCount-1;
-    }
-
-    private static void fillAllField(RegisterPage register) {
-        fakerNameAndBirthday(register);
-        randomCheckBox(register);
-        randomParent(register);
-    }
-
-    private static void fakerNameAndBirthday(RegisterPage register) {
-        Faker faker = new Faker();
-        register.writeName(faker.name().fullName());
-
-        var fakeBirthday = faker.date().birthday();
-        register.writeBirthday(fakeBirthday.toString());
-    }
-
-    private static void randomCheckBox(RegisterPage register) {
-        Random random = new Random();
-        int minimumCheckboxes = 1;
-        int numberOfLanguages = register.getNumberOfLanguages();
-        int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckboxes;
-
-        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
-            register.selectLanguageByIndex(i);
-        }
-    }
-
-    private static void randomParent(RegisterPage register) {
-        register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
-        register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
     }
 
     private IndexPage editEgg(IndexPage index) {
@@ -175,14 +188,14 @@ public class AppTest {
         int numberOfLanguages = edit.getNumberOfLanguages();
         int checkBoxSelected = random.nextInt(numberOfLanguages) + minimumCheckBoxes;
 
-        for (int i = 0; i < Math.min(checkBoxSelected, numberOfLanguages); i++) {
+        for (int i = 0; i < min(checkBoxSelected, numberOfLanguages); i++) {
             edit.selectLanguageByIndex(i);
         }
     }
 
     private static void editParents(EditPage edit) {
-        edit.selectParentByIndex((int) Math.floor(Math.random() * edit.getNumberParentOptions()));
-        edit.selectSecondParentByIndex((int) Math.floor(Math.random() * edit.getNumberSecondParentOptions()));
+        edit.selectParentByIndex((int) floor(Math.random() * edit.getNumberParentOptions()));
+        edit.selectSecondParentByIndex((int) floor(Math.random() * edit.getNumberSecondParentOptions()));
     }
 
     private WebElement editElementToABlankSpace(String element) {
