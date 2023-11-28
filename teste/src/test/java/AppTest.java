@@ -1,8 +1,10 @@
 import com.github.javafaker.Faker;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.EditPage;
 import pages.IndexPage;
 import pages.PagesFactory;
@@ -11,9 +13,11 @@ import pages.impl.PagesFactoryImpl;
 import util.WebDriverProvider;
 import util.WebDriverProviderImpl;
 
+import java.time.Duration;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 public class AppTest {
     private static final WebDriverProvider driverProvider = new WebDriverProviderImpl();
@@ -31,11 +35,14 @@ public class AppTest {
     }
 
     @Test
-    @DisplayName("should register  a new egg")
+    @DisplayName("Should register a new egg")
     void shouldRegisterANewEgg() {
-        addNewEgg();
-        int visibleTrCount = countTrElement();
-        assertThat(visibleTrCount).isEqualTo(1);
+        var index = addNewEgg();
+        var softly = new SoftAssertions();
+        
+        softly.assertThatCode(() -> index.waitEggsLoad(Duration.ofSeconds(5))).doesNotThrowAnyException();
+        softly.assertThat(index.getNumberOfEggs()).isEqualTo(1);
+        softly.assertAll();
     }
 
     @Test

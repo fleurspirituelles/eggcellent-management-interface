@@ -1,9 +1,13 @@
 package pages;
 
+import java.time.Duration;
+
 public interface IndexPage extends Page {
     int getNumberOfEggs();
 
     EggComponent getEggByIndex(int index);
+
+    void waitEggsLoad(Duration duration);
 
     void deleteEggByIndex(int index);
 
