@@ -46,6 +46,8 @@ public class AppTest {
 
             - Além disso, o formato da data de nascimento não pode ser inferido pelo html: é formato ISO? "dd/mm/yyyy"?
               "Month dd, yyyy"? Então vamos padronizar para formato ISO: yyyy-mm-dd.
+
+            - Testes de repetição devem ser anotados com @Tag("RepetitionTest")
     */
 
     @Nested
@@ -72,6 +74,8 @@ public class AppTest {
                   errada.
                     - É má pŕatica haver testes com loops
                     - Usar o @RepeatedTest(numeroDeRepetições)
+
+            - Anote todos os testes com @Tag("RegisteringSystemTest")
         */
     }
 
@@ -94,6 +98,8 @@ public class AppTest {
                     - Mudança para nenhuma checkbox selecionada (1 teste)
                     - Mudança para parent inválido (1 teste)
                     - Mudança para second parent inválido (1 teste)
+
+            - Anote todos os métodos de teste com @Tag("EditingSystemTest")
         */
     }
 
@@ -109,6 +115,8 @@ public class AppTest {
 
             - Problema com esse: o site foi desenvolvido de uma forma que não dá para testar uma classe inválida para
               isso
+
+            - Anote todos os testes com @Tag("DeletingSystemTest")
         */
     }
 
