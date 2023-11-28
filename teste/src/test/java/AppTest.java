@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import pages.EditPage;
 import pages.IndexPage;
-import pages.impl.RegisterPageImpl;
+import pages.PagesFactory;
+import pages.RegisterPage;
+import pages.impl.PagesFactoryImpl;
 import util.WebDriverProvider;
 import util.WebDriverProviderImpl;
 
@@ -15,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
     private static final WebDriverProvider driverProvider = new WebDriverProviderImpl();
+    private static final PagesFactory pagesFactory = new PagesFactoryImpl();
     private WebDriver driver;
 
     @BeforeEach
@@ -83,7 +86,7 @@ public class AppTest {
     }
 
     private IndexPage addNewEgg() {
-        var register = RegisterPageImpl.openPage(driver);
+        var register = pagesFactory.openRegisterPage(driver);
         fillAllField(register);
         return register.registryEgg();
     }
@@ -105,13 +108,13 @@ public class AppTest {
         return visibleTrCount-1;
     }
 
-    private static void fillAllField(RegisterPageImpl register) {
+    private static void fillAllField(RegisterPage register) {
         fakerNameAndBirthday(register);
         randomCheckBox(register);
         randomParent(register);
     }
 
-    private static void fakerNameAndBirthday(RegisterPageImpl register) {
+    private static void fakerNameAndBirthday(RegisterPage register) {
         Faker faker = new Faker();
         register.writeName(faker.name().fullName());
 
@@ -119,7 +122,7 @@ public class AppTest {
         register.writeBirthday(fakeBirthday.toString());
     }
 
-    private static void randomCheckBox(RegisterPageImpl register) {
+    private static void randomCheckBox(RegisterPage register) {
         Random random = new Random();
         int minimumCheckboxes = 1;
         int numberOfLanguages = register.getNumberOfLanguages();
@@ -130,7 +133,7 @@ public class AppTest {
         }
     }
 
-    private static void randomParent(RegisterPageImpl register) {
+    private static void randomParent(RegisterPage register) {
         register.selectParentByIndex((int) Math.floor(Math.random() * register.getNumberOfParentOptions()));
         register.selectSecondParentByIndex((int) Math.floor(Math.random() * register.getNumberSecondParentOptions()));
     }
