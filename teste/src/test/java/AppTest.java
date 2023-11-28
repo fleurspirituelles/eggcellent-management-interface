@@ -7,18 +7,19 @@ import pages.EditPage;
 import pages.IndexPage;
 import pages.impl.RegisterPageImpl;
 import util.WebDriverProvider;
+import util.WebDriverProviderImpl;
 
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
-    public static final String BROWSER_NAME = "edge";
+    private static final WebDriverProvider driverProvider = new WebDriverProviderImpl();
     private WebDriver driver;
 
     @BeforeEach
     void setUp() {
-        driver = WebDriverProvider.getByBrowserName(BROWSER_NAME);
+        driver = driverProvider.getWebDriver();
     }
 
     @AfterEach
