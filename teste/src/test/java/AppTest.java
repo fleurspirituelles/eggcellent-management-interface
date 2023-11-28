@@ -34,14 +34,8 @@ public class AppTest {
     @DisplayName("Should register 1000 eggs in sequence")
     void shouldRegister1000EggsInSequence() {
         add1000Eggs();
-        java.util.List<WebElement> trElements = driver.findElements(By.tagName("tr"));
-        int visibleTrCount = 0;
-        for (WebElement trElement : trElements) {
-            if (trElement.isDisplayed()) {
-                visibleTrCount++;
-            }
-        }
-        assertThat(visibleTrCount-1).isEqualTo(1000);
+        int visibleTrCount = countTrElement();
+        assertThat(visibleTrCount).isEqualTo(1000);
     }
 
     @Test
@@ -99,6 +93,17 @@ public class AppTest {
         for (int i = 0; i < 1000; i++) {
             addNewEgg();
         }
+    }
+
+    private int countTrElement() {
+        java.util.List<WebElement> trElements = driver.findElements(By.tagName("tr"));
+        int visibleTrCount = 0;
+        for (WebElement trElement : trElements) {
+            if (trElement.isDisplayed()) {
+                visibleTrCount++;
+            }
+        }
+        return visibleTrCount-1;
     }
 
     private static void fillAllField(RegisterPageImpl register) {
