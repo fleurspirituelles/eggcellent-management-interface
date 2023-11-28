@@ -1,5 +1,7 @@
 package pages.impl.util;
 
+import util.MissingConfigurationException;
+
 import java.io.IOException;
 import java.util.Properties;
 

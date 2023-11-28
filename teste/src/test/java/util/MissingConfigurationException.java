@@ -1,4 +1,4 @@
-package pages.impl.util;
+package util;
 
 public class MissingConfigurationException extends RuntimeException {
     public MissingConfigurationException(String message) {
