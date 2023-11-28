@@ -121,6 +121,14 @@ public class AppTest {
 
             - Anote todos os testes com @Tag("SystemTest")
         */
+
+        @Test
+        @DisplayName("Should delete a registered egg")
+        void shouldDeleteARegisteredEgg(){
+            var index = addNewRandomEgg();
+            index.deleteLast();
+            assertThat(index.getNumberOfEggs()).isEqualTo(0);
+        }
     }
 
     @Test
