@@ -135,6 +135,7 @@ public class AppTest {
         */
 
         @Test
+        @Tag("SystemTest")
         @DisplayName("Should delete a registered egg")
         void shouldDeleteARegisteredEgg(){
             var index = addNewRandomEgg();
