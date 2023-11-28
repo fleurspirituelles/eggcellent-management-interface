@@ -36,6 +36,82 @@ public class AppTest {
         driver.quit();
     }
 
+    /*
+        Obeservações:
+            - Além dos possíveis testes a seguir, mais podem ser pensados usando outras técnicas como a Análise do Valor
+              Limite
+
+            - Graças ao Alê, foi possível constatar que o Faker começa a bugar na geração de datas quando repetindo
+              muitas vezes a operação de criar um egg. Logo, para esse método, crie eggs com o mesmo dado.
+
+            - Além disso, o formato da data de nascimento não pode ser inferido pelo html: é formato ISO? "dd/mm/yyyy"?
+              "Month dd, yyyy"? Então vamos padronizar para formato ISO: yyyy-mm-dd.
+    */
+
+    @Nested
+    @DisplayName("When registering new eggs")
+    class WhenRegisteringNewEggs {
+        /*
+            Classes válidas:
+                - Egg com todas as informações válidas. (1 teste é suficiente)
+                    - Nome não nulo, não vazio
+                    - Data de nascimento no formato válido de data
+                    - Ao menos um checkbox selecionado
+                    - Parent selecionado
+                    - Second parent selecionado (pode render um teste extra - um selecioando ele, outro não)
+
+            Classes inválidas:
+                - Egg com alguma informação inválida (4 possíveis testes)
+                    - Nome nulo ou vazio (1 teste)
+                    - Data de nascimento no formato inválido (1 teste)
+                    - Nenhum checkbox selecionado (1 teste)
+                    - Nenhum parent selecionado (1 teste)
+
+            Teste extra:
+                - Teste de repetição, ou seja, criar um novo egg repetidas vezes. A implementação atual, porém, está
+                  errada.
+                    - É má pŕatica haver testes com loops
+                    - Usar o @RepeatedTest(numeroDeRepetições)
+        */
+    }
+
+    @Nested
+    @DisplayName("When editing eggs")
+    class WhenEditingEggs {
+        /*
+            Classes válidas:
+                - Preenchimento correto de informações (pelo menos 5 possíveis testes)
+                    - Mudança válida de nome (1 teste)
+                    - Mudança válida de data de nascimento (1 teste)
+                    - Mudança válida de seleção das checkboxes (1 teste)
+                    - Mudança válida de fist parent (1 teste)
+                    - Mudança válida de second parent (1 teste)
+
+            Classes inválidas:
+                - Preenchimento inválido de informações (pelo menos 5 possíveis testes):
+                    - Mudança para nome inválido (1 teste)
+                    - Mudança para data de nascimento com formato inválido (1 teste)
+                    - Mudança para nenhuma checkbox selecionada (1 teste)
+                    - Mudança para parent inválido (1 teste)
+                    - Mudança para second parent inválido (1 teste)
+        */
+    }
+
+    @Nested
+    @DisplayName("When deleting eggs")
+    class WhenDeletingEggs {
+        /*
+            Classes válidas:
+                - Egg existente (1 teste)
+
+            Classes inválidas:
+                - Egg inexistente
+
+            - Problema com esse: o site foi desenvolvido de uma forma que não dá para testar uma classe inválida para
+              isso
+        */
+    }
+
     @Test
     @DisplayName("Should register a new egg")
     void shouldRegisterANewEgg() {
