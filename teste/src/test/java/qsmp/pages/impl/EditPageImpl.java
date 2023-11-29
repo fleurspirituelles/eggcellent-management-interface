@@ -116,7 +116,8 @@ public final class EditPageImpl implements EditPage {
 
     @Override
     public void clearLanguages() {
-        getSelectedLanguages().clear();
+        driver.findElements(By.cssSelector("[name='languages[]']:checked"))
+                .forEach(WebElement::click);
     }
 
     @Override

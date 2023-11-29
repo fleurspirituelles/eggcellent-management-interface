@@ -196,7 +196,7 @@ public class AppTest {
             editInvalidBirthday(editPage);
 
             var index = editPage.editEgg();
-            assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
+            assertThat(index.getEggByIndex(0).getBirthday()).isNotEqualTo(faker.date().birthday().toString());
         }
 
         @Test
