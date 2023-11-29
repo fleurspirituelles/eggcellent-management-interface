@@ -149,8 +149,8 @@ public class AppTest {
         @DisplayName("Should edit name an egg")
         void shouldEditNameAnEgg() {
             addNewRandomEgg();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
             editName(editPage);
 
@@ -163,8 +163,8 @@ public class AppTest {
         @DisplayName("Should edit birthday an egg")
         void shouldEditBirthdayAnEgg() {
             addNewRandomEgg();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
             editBirthday(editPage);
 
@@ -177,10 +177,10 @@ public class AppTest {
         @DisplayName("Should edit languages an egg")
         void shouldEditLanguagesAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            List<String> languages = pagesFactory.openEditPage(driver, 0).getSelectedLanguages();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            List<String> languages = editPage.getSelectedLanguages();
 
             ediCheckBox(editPage);
 
@@ -193,10 +193,10 @@ public class AppTest {
         @DisplayName("Should edit parent an egg")
         void shouldEditParentAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            String parent = pagesFactory.openEditPage(driver, 0).getParent();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            String parent = editPage.getParent();
 
             editParent(editPage);
 
@@ -209,10 +209,10 @@ public class AppTest {
         @DisplayName("Should edit second parent an egg")
         void shouldEditSecondParentAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            String secondParent = pagesFactory.openEditPage(driver, 0).getSecondParent();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            String secondParent = editPage.getSecondParent();
 
             editSecondParent(editPage);
 
