@@ -120,4 +120,9 @@ public final class RegisterPageImpl implements RegisterPage {
         registryButton.click();
         return backToIndex();
     }
+
+    @Override
+    public void waitRegisterButtonToBeClick(Duration duration) {
+        new WebDriverWait(driver, duration).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Register']")));
+    }
 }

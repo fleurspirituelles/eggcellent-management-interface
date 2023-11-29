@@ -1,5 +1,7 @@
 package pages;
 
+import java.time.Duration;
+
 public interface RegisterPage extends Page {
     void writeName(String name);
 
@@ -20,4 +22,6 @@ public interface RegisterPage extends Page {
     IndexPage backToIndex();
 
     IndexPage registryEgg();
+
+    void waitRegisterButtonToBeClick(Duration duration);
 }

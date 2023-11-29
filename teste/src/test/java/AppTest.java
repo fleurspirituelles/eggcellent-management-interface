@@ -232,6 +232,8 @@ public class AppTest {
         register.selectParentByIndex(parentIndex);
         register.selectSecondParentByIndex(secondParentIndex);
 
+        register.waitRegisterButtonToBeClick(Duration.ofSeconds(10));
+
         return register.registryEgg();
     }
 
