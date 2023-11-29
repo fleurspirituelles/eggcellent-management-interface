@@ -209,10 +209,10 @@ public class AppTest {
         @DisplayName("Should edit second parent an egg")
         void shouldEditSecondParentAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            String secondParent = pagesFactory.openEditPage(driver, 0).getSecondParent();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            String secondParent = editPage.getSecondParent();
 
             editPage.selectSecondParentByIndex((int) floor(Math.random() * editPage.getNumberSecondParentOptions()));
 
