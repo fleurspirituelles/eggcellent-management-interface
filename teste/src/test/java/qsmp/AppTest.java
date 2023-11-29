@@ -149,8 +149,8 @@ public class AppTest {
         @DisplayName("Should edit name an egg")
         void shouldEditNameAnEgg() {
             addNewRandomEgg();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
             editName(editPage);
 
