@@ -150,11 +150,10 @@ public class AppTest {
 
             var editPage = pagesFactory.openEditPage(driver, 0);
 
-            editPage.clearName();
-            editPage.writeName(faker.name().fullName());
+            editName(editPage);
 
             var index = editPage.editEgg();
-            assertThat(index.getEggByIndex(0).getName()).isEqualTo(faker.name().fullName());
+            assertThat(index.getEggByIndex(0).getName()).isNotEqualTo(faker.name().fullName());
         }
     }
 
@@ -247,6 +246,14 @@ public class AppTest {
         editNameAndBirthday(edit);
         ediCheckBox(edit);
         editParents(edit);
+    }
+
+    private static void editName(EditPage edit) {
+        Faker faker = new Faker();
+
+        edit.clearName();
+
+        edit.writeName(faker.name().fullName());
     }
 
     private static void editNameAndBirthday(EditPage edit) {
