@@ -202,6 +202,22 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getParent()).isNotEqualTo(parent);
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should edit second parent an egg")
+        void shouldEditSecondParentAnEgg() {
+            addNewRandomEgg();
+
+            String secondParent = pagesFactory.openEditPage(driver, 0).getSecondParent();
+
+            var editPage = pagesFactory.openEditPage(driver, 0);
+
+            editPage.selectSecondParentByIndex((int) floor(Math.random() * editPage.getNumberSecondParentOptions()));
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getSecondParent()).isNotEqualTo(secondParent);
+        }
     }
 
     @Nested
