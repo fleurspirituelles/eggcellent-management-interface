@@ -216,6 +216,34 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getLanguages()).isEqualTo(languages);
         }
+
+        @Test
+        @DisplayName("Should not edit an egg without name")
+        void shouldNotEditAnEggWithoutName(){
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            editPage.clearName();
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getName()).isEqualTo(faker.name().fullName());
+        }
+
+        @Test
+        @DisplayName("Should not edit an egg without birthday")
+        void shouldNotEditAnEggWithoutBirthday(){
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            editPage.clearBirthday();
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
+        }
     }
 
     @Nested
