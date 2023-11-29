@@ -155,6 +155,22 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getName()).isNotEqualTo(faker.name().fullName());
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should edit birthday an egg")
+        void shouldEditBirthdayAnEgg() {
+            addNewRandomEgg();
+
+            var editPage = pagesFactory.openEditPage(driver, 0);
+
+            editPage.clearBirthday();
+            var fakeBirthday = new Faker().date().birthday();
+            editPage.writeBirthday(fakeBirthday.toString());
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(fakeBirthday.toString());
+        }
     }
 
     @Nested
