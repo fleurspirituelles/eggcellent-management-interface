@@ -193,10 +193,10 @@ public class AppTest {
         @DisplayName("Should edit parent an egg")
         void shouldEditParentAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            String parent = pagesFactory.openEditPage(driver, 0).getParent();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            String parent = editPage.getParent();
 
             editParent(editPage);
 
