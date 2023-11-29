@@ -19,6 +19,8 @@ public interface EditPage extends Page {
 
     void selectLanguageByIndex(int index);
 
+    void clearLanguages();
+
     List<String> getSelectedLanguages();
 
     int getNumberOfLanguages();
