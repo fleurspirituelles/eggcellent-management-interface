@@ -142,6 +142,21 @@ public class AppTest {
 
             - Anote todos os métodos de teste com @Tag("SystemTest")
         */
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should edit name an egg")
+        void shouldEditNameAnEgg() {
+            addNewRandomEgg();
+
+            var editPage = pagesFactory.openEditPage(driver, 0);
+
+            editPage.clearName();
+            editPage.writeName(faker.name().fullName());
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getName()).isEqualTo(faker.name().fullName());
+        }
     }
 
     @Nested
