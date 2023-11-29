@@ -3,9 +3,7 @@ package qsmp;
 import com.github.javafaker.Faker;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import qsmp.pages.EditPage;
 import qsmp.pages.IndexPage;
 import qsmp.pages.PagesFactory;
@@ -232,9 +230,6 @@ public class AppTest {
         }
     }
 
-    private record Elements(InitialElement initial, EditedElement edited) {
-    }
-
     private IndexPage addNewRandomEgg() {
         var register = pagesFactory.openRegisterPage(driver);
 
@@ -284,18 +279,6 @@ public class AppTest {
         }
     }
 
-    private IndexPage editEgg(IndexPage index) {
-        var edit = index.editEggByIndex(0);
-        fullFillTheEditFields(edit);
-        return edit.editEgg();
-    }
-
-    private static void fullFillTheEditFields(EditPage edit) {
-        editNameAndBirthday(edit);
-        ediCheckBox(edit);
-        editParents(edit);
-    }
-
     private static void editName(EditPage edit) {
         Faker faker = new Faker();
 
@@ -322,17 +305,6 @@ public class AppTest {
         edit.writeBirthday(invalidBirthday);
     }
 
-    private static void editNameAndBirthday(EditPage edit) {
-        Faker faker = new Faker();
-
-        edit.clearName();
-        edit.clearBirthday();
-
-        edit.writeName(faker.name().fullName());
-        var fakeBirthday = faker.date().birthday();
-        edit.writeBirthday(fakeBirthday.toString());
-    }
-
     private static void ediCheckBox(EditPage edit) {
         Random random = new Random();
         int minimumCheckBoxes = 1;
@@ -350,34 +322,5 @@ public class AppTest {
 
     private static void editSecondParent(EditPage edit) {
         edit.selectSecondParentByIndex((int) floor(Math.random() * edit.getNumberSecondParentOptions()));
-    }
-
-    private static void editParents(EditPage edit) {
-        edit.selectParentByIndex((int) floor(Math.random() * edit.getNumberParentOptions()));
-        edit.selectSecondParentByIndex((int) floor(Math.random() * edit.getNumberSecondParentOptions()));
-    }
-
-    private record InitialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
-
-    private InitialElement getInitialElement() {
-        WebElement name = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        WebElement birthday = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-        WebElement firtsParent = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        return new InitialElement(name, birthday, firtsParent);
-    }
-
-    private record EditedElement(WebElement nameEdited, WebElement birthdayEdited, WebElement firtsParentEdited) {}
-
-    private EditedElement getEditedElement() {
-        WebElement nameEdited = driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        WebElement birthdayEdited = driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-        WebElement firtsParentEdited = driver.findElement(By.xpath("(//tbody/tr/td)[4]"));
-        return new EditedElement(nameEdited, birthdayEdited, firtsParentEdited);
-    }
-
-    private static void assertThatElement(Elements element) {
-        assertThat(element.initial().name()).isNotEqualTo(element.edited().nameEdited());
-        assertThat(element.initial().birthday()).isNotEqualTo(element.edited().birthdayEdited());
-        assertThat(element.initial().firtsParent()).isNotEqualTo(element.edited().firtsParentEdited());
     }
 }
