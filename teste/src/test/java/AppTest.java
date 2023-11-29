@@ -8,19 +8,16 @@ import pages.EditPage;
 import pages.IndexPage;
 import pages.PagesFactory;
 import pages.RegisterPage;
-import pages.impl.EditPageImpl;
 import pages.impl.PagesFactoryImpl;
 import util.WebDriverProvider;
 import util.WebDriverProviderImpl;
 
 import java.time.Duration;
-import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.floor;
 import static java.lang.Math.min;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatNoException;
 
 public class AppTest {
     private final WebDriverProvider driverProvider = new WebDriverProviderImpl();
