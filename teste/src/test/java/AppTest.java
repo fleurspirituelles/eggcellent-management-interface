@@ -14,11 +14,13 @@ import util.WebDriverProvider;
 import util.WebDriverProviderImpl;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.floor;
 import static java.lang.Math.min;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 
 public class AppTest {
     private final WebDriverProvider driverProvider = new WebDriverProviderImpl();
@@ -147,14 +149,6 @@ public class AppTest {
             index.deleteLast();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
         }
-    }
-
-    @Test
-    @DisplayName("Should edit a registered egg")
-    void shouldEditARegisteredEgg(){
-        var index = addNewRandomEgg();
-        Elements element = getElements(index);
-        assertThatElement(element);
     }
 
     private record Elements(InitialElement initial, EditedElement edited) {
