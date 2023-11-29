@@ -177,10 +177,10 @@ public class AppTest {
         @DisplayName("Should edit languages an egg")
         void shouldEditLanguagesAnEgg() {
             addNewRandomEgg();
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
 
-            List<String> languages = pagesFactory.openEditPage(driver, 0).getSelectedLanguages();
-
-            var editPage = pagesFactory.openEditPage(driver, 0);
+            List<String> languages = editPage.getSelectedLanguages();
 
             ediCheckBox(editPage);
 
