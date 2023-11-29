@@ -229,10 +229,7 @@ public class AppTest {
             var indexPage = pagesFactory.openIndexPage(driver);
             var editPage = indexPage.editEggByIndex(0);
 
-            editPage.clearBirthday();
-
-            var invalidBirthday = faker.animal().name();
-            editPage.writeBirthday(invalidBirthday);
+            editInvalidBirthday(editPage);
 
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
@@ -345,6 +342,15 @@ public class AppTest {
 
         var fakeBirthday = faker.date().birthday();
         edit.writeBirthday(fakeBirthday.toString());
+    }
+
+    private static void editInvalidBirthday(EditPage edit) {
+        Faker faker = new Faker();
+
+        edit.clearBirthday();
+
+        var invalidBirthday = faker.animal().name();
+        edit.writeBirthday(invalidBirthday);
     }
 
     private static void editNameAndBirthday(EditPage edit) {
