@@ -1,4 +1,4 @@
-package pages;
+package qsmp.pages;
 
 public interface Page {
     String getTitle();

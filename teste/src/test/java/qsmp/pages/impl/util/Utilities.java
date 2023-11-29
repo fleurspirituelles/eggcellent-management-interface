@@ -1,6 +1,6 @@
-package pages.impl.util;
+package qsmp.pages.impl.util;
 
-import util.MissingConfigurationException;
+import qsmp.util.MissingConfigurationException;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -12,7 +12,7 @@ public final class Utilities {
         var directory = getPropertiesResource().getProperty("pages.directory.name");
 
         if (directory == null) throw new MissingConfigurationException(
-            "It is missing pages.directory.name property which should detail the absolute path to the pages folder."
+            "It is missing qsmp.pages.directory.name property which should detail the absolute path to the qsmp.pages folder."
         );
 
         return directory;
@@ -37,7 +37,7 @@ public final class Utilities {
     private static void throwMissingConfigurationError() {
         throw new MissingConfigurationException(
             "It is missing tests.config.properties files at resources folder detailing required configurations " +
-                "to correctly find the pages folder. Please create file: src/test/resources/tests.config.properties"
+                "to correctly find the qsmp.pages folder. Please create file: src/test/resources/tests.config.properties"
         );
     }
 }

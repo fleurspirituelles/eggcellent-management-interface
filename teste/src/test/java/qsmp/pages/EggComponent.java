@@ -1,4 +1,4 @@
-package pages;
+package qsmp.pages;
 
 import org.openqa.selenium.WebDriver;
 

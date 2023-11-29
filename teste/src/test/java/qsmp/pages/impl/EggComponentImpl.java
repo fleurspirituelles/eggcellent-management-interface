@@ -1,12 +1,12 @@
-package pages.impl;
+package qsmp.pages.impl;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.EditPage;
-import pages.EggComponent;
+import qsmp.pages.EditPage;
+import qsmp.pages.EggComponent;
 
 import java.time.Duration;
 import java.util.Arrays;

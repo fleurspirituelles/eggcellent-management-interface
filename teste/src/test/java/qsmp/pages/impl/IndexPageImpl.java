@@ -1,20 +1,20 @@
-package pages.impl;
+package qsmp.pages.impl;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.EditPage;
-import pages.EggComponent;
-import pages.IndexPage;
-import pages.RegisterPage;
+import qsmp.pages.EditPage;
+import qsmp.pages.EggComponent;
+import qsmp.pages.IndexPage;
+import qsmp.pages.RegisterPage;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 
-import static pages.impl.util.Utilities.getPagesDirectory;
+import static qsmp.pages.impl.util.Utilities.getPagesDirectory;
 
 public final class IndexPageImpl implements IndexPage {
     private final WebDriver driver;

@@ -1,4 +1,4 @@
-package pages;
+package qsmp.pages;
 
 import java.time.Duration;
 

@@ -1,16 +1,18 @@
+package qsmp;
+
 import com.github.javafaker.Faker;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pages.EditPage;
-import pages.IndexPage;
-import pages.PagesFactory;
-import pages.RegisterPage;
-import pages.impl.PagesFactoryImpl;
-import util.WebDriverProvider;
-import util.WebDriverProviderImpl;
+import qsmp.pages.EditPage;
+import qsmp.pages.IndexPage;
+import qsmp.pages.PagesFactory;
+import qsmp.pages.RegisterPage;
+import qsmp.pages.impl.PagesFactoryImpl;
+import qsmp.util.WebDriverProvider;
+import qsmp.util.WebDriverProviderImpl;
 
 import java.time.Duration;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package util;
+package qsmp.util;
 
 import org.openqa.selenium.WebDriver;
 

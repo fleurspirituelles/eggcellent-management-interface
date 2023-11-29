@@ -1,10 +1,10 @@
-package pages.impl;
+package qsmp.pages.impl;
 
 import org.openqa.selenium.WebDriver;
-import pages.EditPage;
-import pages.IndexPage;
-import pages.PagesFactory;
-import pages.RegisterPage;
+import qsmp.pages.EditPage;
+import qsmp.pages.IndexPage;
+import qsmp.pages.PagesFactory;
+import qsmp.pages.RegisterPage;
 
 public final class PagesFactoryImpl implements PagesFactory {
     @Override
