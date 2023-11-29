@@ -234,6 +234,22 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should not edit an egg without languages")
+        void shouldNotEditAnEggWithoutLanguages() {
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            List<String> languages = editPage.getSelectedLanguages();
+            editPage.clearLanguages();
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getLanguages()).isEqualTo(languages);
+        }
     }
 
     @Nested
