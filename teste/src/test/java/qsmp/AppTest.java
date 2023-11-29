@@ -39,20 +39,6 @@ public class AppTest {
         driver.quit();
     }
 
-    /*
-        Obeservações:
-            - Além dos possíveis testes a seguir, mais podem ser pensados usando outras técnicas como a Análise do Valor
-              Limite
-
-            - Graças ao Alê, foi possível constatar que o Faker começa a bugar na geração de datas quando repetindo
-              muitas vezes a operação de criar um egg. Logo, para esse método, crie eggs com o mesmo dado.
-
-            - Além disso, o formato da data de nascimento não pode ser inferido pelo html: é formato ISO? "dd/mm/yyyy"?
-              "Month dd, yyyy"? Então vamos padronizar para formato ISO: yyyy-mm-dd.
-
-            - Testes de repetição devem ser anotados com @Tag("RepetitionTest")
-    */
-
     @Nested
     @Tag("RegisteringSystemTests")
     @DisplayName("When registering new eggs")
@@ -124,26 +110,6 @@ public class AppTest {
     @Tag("EditingSystemTests")
     @DisplayName("When editing eggs")
     class WhenEditingEggs {
-        /*
-            Classes válidas:
-                - Preenchimento correto de informações (pelo menos 5 possíveis testes)
-                    - Mudança válida de nome (1 teste)
-                    - Mudança válida de data de nascimento (1 teste)
-                    - Mudança válida de seleção das checkboxes (1 teste)
-                    - Mudança válida de fist parent (1 teste)
-                    - Mudança válida de second parent (1 teste)
-
-            Classes inválidas:
-                - Preenchimento inválido de informações (pelo menos 5 possíveis testes):
-                    - Mudança para nome inválido (1 teste)
-                    - Mudança para data de nascimento com formato inválido (1 teste)
-                    - Mudança para nenhuma checkbox selecionada (1 teste)
-                    - Mudança para parent inválido (1 teste)
-                    - Mudança para second parent inválido (1 teste)
-
-            - Anote todos os métodos de teste com @Tag("SystemTest")
-        */
-
         @Test
         @Tag("SystemTest")
         @DisplayName("Should edit name an egg")
@@ -284,19 +250,6 @@ public class AppTest {
     @Tag("DeletingSystemTests")
     @DisplayName("When deleting eggs")
     class WhenDeletingEggs {
-        /*
-            Classes válidas:
-                - Egg existente (1 teste)
-
-            Classes inválidas:
-                - Egg inexistente
-
-            - Problema com esse: o site foi desenvolvido de uma forma que não dá para testar uma classe inválida para
-              isso
-
-            - Anote todos os testes com @Tag("SystemTest")
-        */
-
         @Test
         @Tag("SystemTest")
         @DisplayName("Should delete a registered egg")
