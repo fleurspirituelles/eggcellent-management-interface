@@ -61,7 +61,7 @@ public class AppTest {
         void shouldNotAddAEggWithNullBirthday() {
             var registerPage = pagesFactory.openRegisterPage(driver);
             registerPage.writeName(faker.name().fullName());
-            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage) - 1);
             registerPage.selectParentByIndex(getRandomParent(registerPage));
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
@@ -73,7 +73,7 @@ public class AppTest {
         void shouldNotAddAEggWithNullName() {
             var registerPage = pagesFactory.openRegisterPage(driver);
             registerPage.writeBirthday(faker.date().birthday().toString());
-            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage) - 1);
             registerPage.selectParentByIndex(getRandomParent(registerPage));
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
