@@ -59,7 +59,7 @@ public class AppTest {
         void shouldNotAddAEggWithNullBirthday() {
             var registerPage = pagesFactory.openRegisterPage(driver);
             registerPage.writeName(faker.name().fullName());
-            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage) - 1);
             registerPage.selectParentByIndex(getRandomParent(registerPage));
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
@@ -71,7 +71,7 @@ public class AppTest {
         void shouldNotAddAEggWithNullName() {
             var registerPage = pagesFactory.openRegisterPage(driver);
             registerPage.writeBirthday(faker.date().birthday().toString());
-            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage));
+            registerPage.selectLanguageByIndex(getRandomNumberOfCheckboxes(registerPage) - 1);
             registerPage.selectParentByIndex(getRandomParent(registerPage));
             var index = registerPage.registryEgg();
             assertThat(index.getNumberOfEggs()).isEqualTo(0);
@@ -213,6 +213,34 @@ public class AppTest {
 
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getLanguages()).isNotEqualTo(languages);
+        }
+
+        @Test
+        @DisplayName("Should not edit an egg without name")
+        void shouldNotEditAnEggWithoutName(){
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            editPage.clearName();
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getName()).isEqualTo(faker.name().fullName());
+        }
+
+        @Test
+        @DisplayName("Should not edit an egg without birthday")
+        void shouldNotEditAnEggWithoutBirthday(){
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            editPage.clearBirthday();
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
         }
     }
 
