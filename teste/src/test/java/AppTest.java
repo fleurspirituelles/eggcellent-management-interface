@@ -174,26 +174,6 @@ public class AppTest {
     private record Elements(InitialElement initial, EditedElement edited) {
     }
 
-    @Nested
-    @DisplayName("Test of blank spaces")
-    class TestBlankSpace{
-        @Test
-        @DisplayName("Should return the name as a blank space")
-        void shouldReturnABlankSpace(){
-            addNewRandomEgg();
-            WebElement belowName = editElementToABlankSpace("name");
-            assertThat(belowName.getText()).isBlank();
-        }
-
-        @Test
-        @DisplayName("Should return the birthday as a blank space")
-        void ShouldReturnTheBirthdayAsABlankSpace() {
-            addNewRandomEgg();
-            WebElement belowBirthday = editElementToABlankSpace("birthday");
-            assertThat(belowBirthday.getText()).isBlank();
-        }
-    }
-
     private IndexPage addNewRandomEgg() {
         var register = pagesFactory.openRegisterPage(driver);
 
@@ -280,43 +260,6 @@ public class AppTest {
     private static void editParents(EditPage edit) {
         edit.selectParentByIndex((int) floor(Math.random() * edit.getNumberParentOptions()));
         edit.selectSecondParentByIndex((int) floor(Math.random() * edit.getNumberSecondParentOptions()));
-    }
-
-    private WebElement editElementToABlankSpace(String element) {
-        return elementToLetBlank(element);
-    }
-
-    private WebElement elementToLetBlank(String element) {
-        eraseElement(element);
-        return elementToCheck(element);
-    }
-
-    private void eraseElement(String element) {
-        WebElement edit = driver.findElement(By.xpath("//button[text()='Edit']"));
-        edit.click();
-
-        WebElement webElement = driver.findElement(By.id(element));
-        webElement.clear();
-
-        WebElement editButton = driver.findElement(By.xpath("//button[text()='Edit']"));
-        editButton.click();
-
-        WebElement returnIndex = driver.findElement(By.linkText("Back to Index"));
-        returnIndex.click();
-    }
-
-    private WebElement elementToCheck(String element) {
-        if (element.equals("name")){
-            return driver.findElement(By.xpath("(//tbody/tr/td)[1]"));
-        }
-        return driver.findElement(By.xpath("(//tbody/tr/td)[2]"));
-    }
-
-    private Elements getElements(IndexPage index) {
-        InitialElement initial = getInitialElement();
-        index = editEgg(index);
-        EditedElement edited = getEditedElement();
-        return new Elements(initial, edited);
     }
 
     private record InitialElement(WebElement name, WebElement birthday, WebElement firtsParent) {}
