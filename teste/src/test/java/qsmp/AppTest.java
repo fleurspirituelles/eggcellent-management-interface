@@ -219,6 +219,24 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getSecondParent()).isNotEqualTo(secondParent);
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should not edit an egg with invalid birthday")
+        void shouldNotEditAnEggWithInvalidBirthday() {
+            addNewRandomEgg();
+
+            var indexPage = pagesFactory.openIndexPage(driver);
+            var editPage = indexPage.editEggByIndex(0);
+
+            editPage.clearBirthday();
+
+            var invalidBirthday = faker.animal().name();
+            editPage.writeBirthday(invalidBirthday);
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getBirthday()).isEqualTo(faker.date().birthday().toString());
+        }
     }
 
     @Nested
