@@ -212,7 +212,7 @@ public class AppTest {
             editPage.clearLanguages();
 
             var index = editPage.editEgg();
-            assertThat(index.getEggByIndex(0).getLanguages()).isEqualTo(languages);
+            assertThat(index.getEggByIndex(0).getLanguages()).isNotEqualTo(languages);
         }
     }
 
