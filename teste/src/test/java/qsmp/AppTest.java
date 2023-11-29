@@ -214,7 +214,7 @@ public class AppTest {
 
             var editPage = pagesFactory.openEditPage(driver, 0);
 
-            editPage.selectSecondParentByIndex((int) floor(Math.random() * editPage.getNumberSecondParentOptions()));
+            editSecondParent(editPage);
 
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getSecondParent()).isNotEqualTo(secondParent);
@@ -353,6 +353,10 @@ public class AppTest {
 
     private static void editParent(EditPage edit) {
         edit.selectParentByIndex((int) floor(Math.random() * edit.getNumberParentOptions()));
+    }
+
+    private static void editSecondParent(EditPage edit) {
+        edit.selectSecondParentByIndex((int) floor(Math.random() * edit.getNumberSecondParentOptions()));
     }
 
     private static void editParents(EditPage edit) {
