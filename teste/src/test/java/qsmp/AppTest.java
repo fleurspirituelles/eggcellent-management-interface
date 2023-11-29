@@ -186,6 +186,22 @@ public class AppTest {
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getLanguages()).isNotEqualTo(languages);
         }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should edit parent an egg")
+        void shouldEditParentAnEgg() {
+            addNewRandomEgg();
+
+            String parent = pagesFactory.openEditPage(driver, 0).getParent();
+
+            var editPage = pagesFactory.openEditPage(driver, 0);
+
+            editPage.selectParentByIndex((int) floor(Math.random() * editPage.getNumberParentOptions()));
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getParent()).isNotEqualTo(parent);
+        }
     }
 
     @Nested
