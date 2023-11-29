@@ -106,6 +106,7 @@ public class AppTest {
 
         @RepeatedTest(1000)
         @Tag("RepetitionTest")
+        @Tag("SystemTest")
         @DisplayName("Should register 1000 new egg")
         void shouldRegister1000NewEgg() {
             var index = addNewRandomEgg();
