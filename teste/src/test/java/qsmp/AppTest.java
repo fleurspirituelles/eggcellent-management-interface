@@ -197,7 +197,7 @@ public class AppTest {
 
             var editPage = pagesFactory.openEditPage(driver, 0);
 
-            editPage.selectParentByIndex((int) floor(Math.random() * editPage.getNumberParentOptions()));
+            editParent(editPage);
 
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getParent()).isNotEqualTo(parent);
@@ -332,6 +332,10 @@ public class AppTest {
         for (int i = 0; i < min(checkBoxSelected, numberOfLanguages); i++) {
             edit.selectLanguageByIndex(i);
         }
+    }
+
+    private static void editParent(EditPage edit) {
+        edit.selectParentByIndex((int) floor(Math.random() * edit.getNumberParentOptions()));
     }
 
     private static void editParents(EditPage edit) {
