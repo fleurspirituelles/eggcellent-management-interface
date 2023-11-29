@@ -54,7 +54,7 @@ public class AppTest {
     */
 
     @Nested
-    @Tag("RegisteringSystemTag")
+    @Tag("RegisteringSystemTests")
     @DisplayName("When registering new eggs")
     class WhenRegisteringNewEggs {
         @Test
@@ -120,7 +120,7 @@ public class AppTest {
     }
 
     @Nested
-    @Tag("EditingSystemTest")
+    @Tag("EditingSystemTests")
     @DisplayName("When editing eggs")
     class WhenEditingEggs {
         /*
@@ -145,7 +145,7 @@ public class AppTest {
     }
 
     @Nested
-    @Tag("DeletingSystemTest")
+    @Tag("DeletingSystemTests")
     @DisplayName("When deleting eggs")
     class WhenDeletingEggs {
         /*
