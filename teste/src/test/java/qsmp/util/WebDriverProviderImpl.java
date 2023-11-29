@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public final class WebDriverProviderImpl implements WebDriverProvider {
-    private static final String PROPERTIES_FILE = "tests.config.properties";
+    private static final String PROPERTIES_FILE = "qsmp/tests.config.properties";
 
     @Override
     public WebDriver getWebDriver() {
