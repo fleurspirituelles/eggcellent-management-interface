@@ -15,6 +15,7 @@ import qsmp.util.WebDriverProvider;
 import qsmp.util.WebDriverProviderImpl;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.floor;
@@ -168,6 +169,22 @@ public class AppTest {
 
             var index = editPage.editEgg();
             assertThat(index.getEggByIndex(0).getBirthday()).isNotEqualTo(faker.date().birthday().toString());
+        }
+
+        @Test
+        @Tag("SystemTest")
+        @DisplayName("Should edit languages an egg")
+        void shouldEditLanguagesAnEgg() {
+            addNewRandomEgg();
+
+            List<String> languages = pagesFactory.openEditPage(driver, 0).getSelectedLanguages();
+
+            var editPage = pagesFactory.openEditPage(driver, 0);
+
+            ediCheckBox(editPage);
+
+            var index = editPage.editEgg();
+            assertThat(index.getEggByIndex(0).getLanguages()).isNotEqualTo(languages);
         }
     }
 
